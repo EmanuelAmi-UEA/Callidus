@@ -1,0 +1,186 @@
+{
+  "pizzas": [
+    {
+      "id": 1,
+      "nome": "Margherita",
+      "preco": 25.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Manjericão fresco",
+        "Azeite de oliva"
+      ],
+      "categoria": "tradicional",
+      "imagem": "margherita.jpg",
+      "descricao": "A clássica pizza italiana com ingredientes frescos e sabor autêntico."
+    },
+    {
+      "id": 2,
+      "nome": "Pepperoni",
+      "preco": 29.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Pepperoni",
+        "Orégano"
+      ],
+      "categoria": "tradicional",
+      "imagem": "pepperoni.jpg",
+      "descricao": "Pizza saborosa com fatias de pepperoni e queijo derretido."
+    },
+    {
+      "id": 3,
+      "nome": "Calabresa",
+      "preco": 27.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Calabresa",
+        "Cebola",
+        "Orégano"
+      ],
+      "categoria": "tradicional",
+      "imagem": "calabresa.jpg",
+      "descricao": "Pizza brasileira tradicional com calabresa e cebola."
+    },
+    {
+      "id": 4,
+      "nome": "Quatro Queijos",
+      "preco": 32.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Gorgonzola",
+        "Parmesão",
+        "Provolone"
+      ],
+      "categoria": "especial",
+      "imagem": "quatro-queijos.jpg",
+      "descricao": "Uma combinação irresistível de quatro queijos selecionados."
+    },
+    {
+      "id": 5,
+      "nome": "Portuguesa",
+      "preco": 31.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Presunto",
+        "Ovos",
+        "Cebola",
+        "Azeitona",
+        "Ervilha"
+      ],
+      "categoria": "especial",
+      "imagem": "portuguesa.jpg",
+      "descricao": "Pizza completa com presunto, ovos e vegetais frescos."
+    },
+    {
+      "id": 6,
+      "nome": "Frango com Catupiry",
+      "preco": 30.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Frango desfiado",
+        "Catupiry",
+        "Milho"
+      ],
+      "categoria": "especial",
+      "imagem": "frango-catupiry.jpg",
+      "descricao": "Deliciosa pizza com frango desfiado e cremoso catupiry."
+    },
+    {
+      "id": 7,
+      "nome": "Vegetariana",
+      "preco": 28.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Abobrinha",
+        "Berinjela",
+        "Pimentão",
+        "Cebola",
+        "Azeitona",
+        "Manjericão"
+      ],
+      "categoria": "vegetariana",
+      "imagem": "vegetariana.jpg",
+      "descricao": "Pizza saudável com uma variedade de vegetais frescos."
+    },
+    {
+      "id": 8,
+      "nome": "Napolitana",
+      "preco": 26.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Tomate",
+        "Manjericão",
+        "Alho",
+        "Azeite de oliva"
+      ],
+      "categoria": "tradicional",
+      "imagem": "napolitana.jpg",
+      "descricao": "Pizza italiana simples e saborosa com tomates frescos."
+    },
+    {
+      "id": 9,
+      "nome": "Bacon",
+      "preco": 33.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Bacon",
+        "Cebola",
+        "Orégano"
+      ],
+      "categoria": "especial",
+      "imagem": "bacon.jpg",
+      "descricao": "Pizza irresistível com bacon crocante e muito sabor."
+    },
+    {
+      "id": 10,
+      "nome": "Atum",
+      "preco": 29.90,
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Atum",
+        "Cebola",
+        "Azeitona",
+        "Orégano"
+      ],
+      "categoria": "especial",
+      "imagem": "atum.jpg",
+      "descricao": "Pizza leve e saborosa com atum e azeitonas."
+    },
+    {
+      "id": 11,
+      "nome": "Chocolate",
+      "preco": 24.90,
+      "ingredientes": [
+        "Chocolate ao leite",
+        "Morango",
+        "Granulado"
+      ],
+      "categoria": "doce",
+      "imagem": "chocolate.jpg",
+      "descricao": "Pizza doce irresistível com chocolate e morangos frescos."
+    },
+    {
+      "id": 12,
+      "nome": "Banana com Canela",
+      "preco": 22.90,
+      "ingredientes": [
+        "Banana",
+        "Canela",
+        "Açúcar",
+        "Leite condensado"
+      ],
+      "categoria": "doce",
+      "imagem": "banana-canela.jpg",
+      "descricao": "Pizza doce tradicional com banana e canela."
+    }
+  ]
+}
