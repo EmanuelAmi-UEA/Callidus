@@ -8,10 +8,10 @@ export function CartProvider({ children }) {
     const [cartItems, setCartItems] = useState([]);
     const [estoque, setEstoque] = useState({});
 
-    // Load estoque from JSON on mount
+    
     useEffect(() => {
         axios.get('/api/estoque.json').then(res => {
-            // Convert array to object for fast lookup
+            
             const estoqueObj = {};
             res.data.forEach(item => {
                 estoqueObj[item.id] = item.estoque;
@@ -20,7 +20,7 @@ export function CartProvider({ children }) {
         });
     }, []);
 
-    // Add or increment book in cart, checking stock
+    
     const adicionarAoCarrinho = (livro) => {
         setCartItems(oldItems => {
             const item = oldItems.find(i => i.id === livro.id);

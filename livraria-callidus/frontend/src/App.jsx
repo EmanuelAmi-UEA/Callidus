@@ -36,13 +36,11 @@ function AppContent() {
   const [livros, setLivros] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showSplashAfterLogin, setShowSplashAfterLogin] = useState(false);
-
+  
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // SplashScreen inicial
   useEffect(() => {
     if (location.pathname === "/login") return;
     setLoading(true);
@@ -53,20 +51,7 @@ function AppContent() {
     return () => clearTimeout(timer);
   }, []);
 
-  // SplashScreen após login
-  useEffect(() => {
-    if (isAuthenticated && showSplashAfterLogin) {
-      setLoading(true);
-      const timer = setTimeout(() => {
-        setLoading(false);
-        setShowSplashAfterLogin(false);
-        navigate("/");
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [isAuthenticated, showSplashAfterLogin]);
 
-  // Carrega livros apenas se autenticado
   useEffect(() => {
     if (!isAuthenticated) return;
     let isMounted = true;
@@ -82,17 +67,17 @@ function AppContent() {
     return () => { isMounted = false; };
   }, [isAuthenticated]);
 
-  // Atualiza livro editado
+
   const atualizarLivro = (livroEditado) => {
     setLivros(livros.map(l => l.isbn === livroEditado.isbn ? livroEditado : l));
   };
 
-  // Remove livro da lista
+ 
   const removerLivro = (livroRemover) => {
     setLivros(livros.filter(l => l.isbn !== livroRemover.isbn));
   };
 
-  // Adiciona novo livro
+
   const adicionarLivro = (novoLivro) => {
     setLivros([...livros, novoLivro]);
   };

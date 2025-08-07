@@ -10,9 +10,9 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY && window.scrollY > 80) {
-        setShow(false); // Esconde ao descer
+        setShow(false); 
       } else {
-        setShow(true); // Mostra ao subir
+        setShow(true); 
       }
       setLastScrollY(window.scrollY);
     };

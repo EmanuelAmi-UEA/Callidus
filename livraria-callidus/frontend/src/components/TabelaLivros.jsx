@@ -8,7 +8,7 @@ const TabelaLivros = ({ livros, removerLivro }) => {
 
   const confirmarRemocao = (livro) => {
     if (window.confirm("Deseja realmente remover o livro?")) {
-      removerLivro(livro); // Remove da lista (função passada pelo App)
+      removerLivro(livro); 
       toast.success(`Livro "${livro.titulo}" removido com sucesso!`, {
         position: "top-right",
         autoClose: 2500,

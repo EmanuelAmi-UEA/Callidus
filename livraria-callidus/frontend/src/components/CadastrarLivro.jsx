@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const categorias = ["frontend", "design", "programacao"];
 
+//Inicializa Formulario de Cadastro de Livro
 const CadastrarLivro = ({ adicionarLivro }) => {
   const [form, setForm] = useState({
     isbn: "",
@@ -14,15 +15,17 @@ const CadastrarLivro = ({ adicionarLivro }) => {
     paginas: "",
     preco: "",
     descricao: "",
-    estoque: "" // campo de estoque adicionado
+    estoque: "" 
   });
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
+  // Manipula as mudanças no formulário
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // Manipula o envio do formulário
   const handleSubmit = e => {
     e.preventDefault();
     if (
@@ -34,7 +37,7 @@ const CadastrarLivro = ({ adicionarLivro }) => {
       !form.paginas ||
       !form.preco ||
       !form.descricao ||
-      !form.estoque // validação do estoque
+      !form.estoque 
     ) {
       setErro("Preencha todos os campos obrigatórios.");
       return;

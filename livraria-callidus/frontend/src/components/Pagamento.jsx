@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import '/src/Pagamento.css'
 import {ToastContainer, toast} from 'react-toastify';
 
-// --- FUNÇÃO AUXILIAR PARA VALIDAR CPF ---
-// Esta função implementa o algoritmo oficial de validação de CPF.
+
 function validaCPF(cpf) {
   if (typeof cpf !== 'string') return false;
-  cpf = cpf.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
-  if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false; // Verifica tamanho e se todos os dígitos são iguais
-
+  cpf = cpf.replace(/[^\d]/g, ''); 
+  if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false; 
   const digits = cpf.split('').map(Number);
 
   const calculateDigit = (slice) => {
@@ -26,9 +24,6 @@ function validaCPF(cpf) {
   const secondDigit = calculateDigit(digits.slice(0, 10));
   return secondDigit === digits[10];
 }
-
-
-// --- COMPONENTES DOS FORMULÁRIOS (ATUALIZADOS) ---
 
 const FormularioPix = ({ onSubmit, errors }) => (
   <form onSubmit={onSubmit} noValidate>
@@ -74,18 +69,16 @@ const FormularioCartao = ({ onSubmit, errors }) => (
   </form>
 );
 
-
-// --- COMPONENTE PRINCIPAL (ATUALIZADO) ---
 export default function Pagamento() {
   const [metodoPagamento, setMetodoPagamento] = useState('pix');
-  const [errors, setErrors] = useState({}); // Estado para armazenar os erros
+  const [errors, setErrors] = useState({}); 
   const [qrCodeVisible, setQrCodeVisible] = useState(false);
 
-  // Função central de validação
+
   const validate = (formData) => {
     const newErrors = {};
 
-    // Validações para PIX e Cartão
+
     if (metodoPagamento === 'pix') {
       if (!formData.nomeCompleto) newErrors.nomeCompleto = 'O nome completo é obrigatório.';
       else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(formData.nomeCompleto)) newErrors.nomeCompleto = 'O nome deve conter apenas letras e espaços.';
@@ -94,7 +87,6 @@ export default function Pagamento() {
       else if (!validaCPF(formData.cpf)) newErrors.cpf = 'CPF inválido.';
     }
 
-    // Validações para Cartão
     if (metodoPagamento === 'cartao') {
       const numeroCartaoLimpo = formData.numeroCartao.replace(/\s/g, '');
       if (!numeroCartaoLimpo) newErrors.numeroCartao = 'O número do cartão é obrigatório.';
@@ -117,28 +109,27 @@ export default function Pagamento() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors({}); // Limpa erros antigos
+    setErrors({}); 
 
     const formData = Object.fromEntries(new FormData(e.target).entries());
     const validationErrors = validate(formData);
     
-    // Se existem erros, atualiza o estado de erros e interrompe o envio
-    if (Object.keys(validationErrors).length > 0) {
+        if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      setQrCodeVisible(false); // Esconde QR Code se houver erros
+      setQrCodeVisible(false); 
       return;
     }
     
-    // Se a validação passar, continua com a lógica de negócio
+    
     if (metodoPagamento === 'pix') {
       console.log('Dados PIX validados:', formData);
       toast('Validação OK! Gerando PIX...');
-      setQrCodeVisible(true); // Exibe QR Code
+      setQrCodeVisible(true); 
       <ToastContainer/>
     } else {
       console.log('Dados do Cartão validados:', formData);
       toast('Validação OK! Processando pagamento...');
-      setQrCodeVisible(false); // Esconde QR Code para pagamento com cartão
+      setQrCodeVisible(false); 
       <ToastContainer/>
     }
   };

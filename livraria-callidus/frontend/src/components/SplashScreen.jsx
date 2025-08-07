@@ -1,5 +1,5 @@
 import React from 'react'
-import "/src/SplashScreen.css" // Import your CSS for splash screen
+import "/src/SplashScreen.css" 
 
 const SplashScreen = () => {
   return (
