@@ -1,0 +1,100 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #c6461f, #c6461f);
+}
+
+.login-form {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-form h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #f2f2f2;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #333;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.login-form .botao {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-form .botao:hover {
+  background-color: #005fa3;
+}
+
+.login-form .erro {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -8px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.senha-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.senha-wrapper input {
+  flex: 1;
+  padding-right: 2.5rem;
+}
+
+.toggle-senha {
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  height: auto;
+  width: auto;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1.2rem;  
+}
