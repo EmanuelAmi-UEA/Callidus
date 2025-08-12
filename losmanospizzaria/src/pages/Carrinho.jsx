@@ -8,7 +8,9 @@ const CarrinhoPage = () => {
     removerDoCarrinho,
     incrementarQuantidade,
     decrementarQuantidade,
-    estoque
+    estoque,
+    infoEntrega,
+    setInfoEntrega
   } = useCart();
 
   const total = cartItems.reduce((sum, item) => sum + Number(item.preco) * (item.quantidade || 1), 0);
@@ -25,6 +27,18 @@ const CarrinhoPage = () => {
   return (
     <div className="carrinho">
       <h2>Seu Carrinho</h2>
+
+      <label htmlFor="infoEntrega" style={{ marginBottom: 10, display: 'block'}}>
+        Informe a mesa ou endereço para entrega:
+      </label>
+      <input
+        id="infoEntrega"
+        type="text"
+        value={infooEntrega}
+        onChange={(e) => setInfoEntrega(e.target.value)}
+        placeholder="Ex: Mesa 5 ou Rua das Flores, 123"
+        style={{ width: '100%', padding: 8, marginBottom: 20}} />
+        
       <ul className="carrinho-lista">
         {cartItems.map(item => (
           <li key={item.id} className="carrinho-item">

@@ -58,12 +58,16 @@ export function CartProvider({ children }) {
         );
     };
 
+    const [infoEntrega, setInfoEntrega] = useState('');
+
     const value = {
         cartItems,
         adicionarAoCarrinho,
         removerDoCarrinho,
         incrementarQuantidade,
-        decrementarQuantidade
+        decrementarQuantidade,
+        infoEntrega,
+        setInfoEntrega,
     };
 
     return (
