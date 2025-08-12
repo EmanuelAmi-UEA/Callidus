@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext' 
-import "./Login.css"
+import "../css/login.css"
 
 const Login = () => {
   const[email, setEmail]  = useState("")
@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = (e) =>{
     e.preventDefault();
 
-    if(email === "admin@livraria.com" && senha === "123456"){
+    if(email === "admin@pizzaria.com" && senha === "123456"){
         login({nome:"Administrador", email},"fake-jwt-token");
         navigate("/");
     }else{
