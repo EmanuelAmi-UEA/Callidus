@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthProvider'
 
 import Header from './components/Header'
 import Cardapio from './pages/Cardapio'
+import Carrinho from './pages/Carrinho'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
 import Cozinha from './pages/Cozinha'
@@ -29,6 +30,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Cardapio pizzas={pizzasData.pizzas} />} />
                 <Route path="/cardapio" element={<Cardapio pizzas={pizzasData.pizzas} />} />
+                <Route path="/carrinho" element={<Carrinho />} />
                 <Route path="/login" element={<Login />} />
                 <Route 
                   path="/admin" 

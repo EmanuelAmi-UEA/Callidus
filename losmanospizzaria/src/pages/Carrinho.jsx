@@ -1,14 +1,13 @@
+
 import React from 'react';
 import { useCart } from '../context/CarrinhoContext';
 import { Link } from 'react-router-dom';
-
 const CarrinhoPage = () => {
   const {
     cartItems,
     removerDoCarrinho,
     incrementarQuantidade,
     decrementarQuantidade,
-    estoque,
     infoEntrega,
     setInfoEntrega
   } = useCart();
@@ -34,7 +33,7 @@ const CarrinhoPage = () => {
       <input
         id="infoEntrega"
         type="text"
-        value={infooEntrega}
+        value={infoEntrega}
         onChange={(e) => setInfoEntrega(e.target.value)}
         placeholder="Ex: Mesa 5 ou Rua das Flores, 123"
         style={{ width: '100%', padding: 8, marginBottom: 20}} />
@@ -49,10 +48,9 @@ const CarrinhoPage = () => {
               <div>
                 <button onClick={() => decrementarQuantidade(item.id)} disabled={item.quantidade <= 1}>-</button>
                 <span style={{ margin: '0 8px' }}>{item.quantidade || 1}</span>
-                <button onClick={() => incrementarQuantidade(item.id)} disabled={item.quantidade >= (estoque[item.id] || 0)}>+</button>
+                <button onClick={() => incrementarQuantidade(item.id)}>+</button>
                 <span style={{ marginLeft: 12 }}>Subtotal: R$ {(Number(item.preco) * (item.quantidade || 1)).toFixed(2)}</span>
               </div>
-              <span style={{ fontSize: '0.9em', color: '#888' }}>Estoque: {estoque[item.id] || 0}</span>
             </div>
             <button
               className="remover-btn"

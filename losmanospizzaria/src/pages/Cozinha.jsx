@@ -7,7 +7,7 @@ const Cozinha = ({pizzas}) => {
   return (
     <main className='principal'>
       <h2>Menu de pedidos</h2>
-      {pizzas.map((pizza) =>(
+      {(pizzas || []).map((pizza) =>(
         <div className='cardapio-item' key={pizza.id}>
           <div className='thumb'>
             <img
