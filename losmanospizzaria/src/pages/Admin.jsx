@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
+  const navigate = useNavigate();
   return (
     <div className="admin-page">
       <h1>Painel Administrativo</h1>
@@ -10,7 +12,7 @@ const Admin = () => {
           <div className="admin-card">
             <h3>Gerenciar Pizzas</h3>
             <p>Adicionar, editar ou remover pizzas do cardápio</p>
-            <button>Gerenciar Cardápio</button>
+            <button onClick={() => navigate('/admin/gercardapio')}>Gerenciar Cardápio</button>
           </div>
           <div className="admin-card">
             <h3>Pedidos</h3>
@@ -20,7 +22,7 @@ const Admin = () => {
           <div className="admin-card">
             <h3>Relatórios</h3>
             <p>Relatórios de vendas e estatísticas</p>
-            <button>Ver Relatórios</button>
+            <button onClick={() => navigate('/admin/relatorios')}>Ver Relatórios</button>
           </div>
           <div className="admin-card">
             <h3>Usuários</h3>

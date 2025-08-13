@@ -1,3 +1,13 @@
+import Relatorios from './pages/Relatorios';
+                <Route 
+                  path="/admin/relatorios" 
+                  element={
+                    <ProtectedRoute>
+                      <Relatorios />
+                    </ProtectedRoute>
+                  }
+                />
+import GerenciarCardapio from './pages/GerenciarCardapio';
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
@@ -60,6 +70,22 @@ function App() {
                       <Entregas />
                     </ProtectedRoute>
                   } 
+                />
+                <Route 
+                  path="/admin/gercardapio" 
+                  element={
+                    <ProtectedRoute>
+                      <GerenciarCardapio />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route 
+                  path="/admin/relatorios" 
+                  element={
+                    <ProtectedRoute>
+                      <Relatorios />
+                    </ProtectedRoute>
+                  }
                 />
                 <Route path="*" element={<NotFound />} />
               </Routes>

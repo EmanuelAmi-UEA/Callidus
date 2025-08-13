@@ -32,7 +32,7 @@ const Header = () => {
     <header className={`app-header${show ? '' : ' header-hide'}`}>
       <div className='header-content'>
         <div className='logo-area'>
-          <img src='/imagens/pizza-logo.png' alt='Logo' className='header-logo'/>
+          <img src='/assets/imagens/logo.jpeg' alt='Logo' className='header-logo'/>
           <span className='app-title'>LOS MANOS PIZZARIA</span>
         </div>
         <nav className='nav-links'>

@@ -1,0 +1,22 @@
+{
+  "faturamento": {
+    "dia": 850.00,
+    "semana": 5200.00,
+    "mes": 21000.00,
+    "ano": 252000.00
+  },
+  "gastos": {
+    "funcionarios": 6000.00,
+    "materiais": 3500.00,
+    "aluguel": 2000.00
+  },
+  "fluxoCaixa": [
+    { "data": "2025-08-01", "entrada": 900, "saida": 400 },
+    { "data": "2025-08-02", "entrada": 850, "saida": 350 },
+    { "data": "2025-08-03", "entrada": 780, "saida": 420 },
+    { "data": "2025-08-04", "entrada": 950, "saida": 500 },
+    { "data": "2025-08-05", "entrada": 1100, "saida": 600 },
+    { "data": "2025-08-06", "entrada": 1200, "saida": 700 },
+    { "data": "2025-08-07", "entrada": 1000, "saida": 550 }
+  ]
+}
