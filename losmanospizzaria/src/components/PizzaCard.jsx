@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import pizzasData from '../data/pizzas.json';
+import { useCart } from '../context/CarrinhoContext';
+import "../css/PizzaCard.css"; // Importando o CSS específico para o componente PizzaCard
 
 // Função para garantir que a imagem sempre venha do assets local
 const getPizzaImage = (imgName) => {
@@ -37,41 +39,49 @@ const INGREDIENTES_EXTRAS = [
 const PizzaCard = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { adicionarAoCarrinho } = useCart();
 	const pizza = pizzasData.pizzas.find(p => String(p.id) === String(id));
 
-		const [tamanho, setTamanho] = useState(TAMANHOS[0]);
-		const [borda, setBorda] = useState('');
-		const [extras, setExtras] = useState({}); // { Bacon: 0, Queijo: 0, ... }
+	const [tamanho, setTamanho] = useState(TAMANHOS[0]);
+	const [borda, setBorda] = useState('');
+	const [extras, setExtras] = useState({}); // { Bacon: 0, Queijo: 0, ... }
 
 	if (!pizza) {
 		return <div>Pizza não encontrada. <button onClick={() => navigate(-1)}>Voltar</button></div>;
 	}
 
+	const precoBase = pizza.preco * tamanho.fator + tamanho.acrescimo;
+	const precoBorda = borda ? (BORDAS.find(b => b.nome === borda)?.preco || 0) : 0;
+	const precoExtras = Object.entries(extras).reduce((acc, [nome, qtd]) => {
+		const extra = INGREDIENTES_EXTRAS.find(e => e.nome === nome);
+		return acc + (extra ? extra.preco * qtd : 0);
+	}, 0);
+	const precoTotal = precoBase + precoBorda + precoExtras;
 
-		const precoBase = pizza.preco * tamanho.fator + tamanho.acrescimo;
-		const precoBorda = borda ? (BORDAS.find(b => b.nome === borda)?.preco || 0) : 0;
-		const precoExtras = Object.entries(extras).reduce((acc, [nome, qtd]) => {
-			const extra = INGREDIENTES_EXTRAS.find(e => e.nome === nome);
-			return acc + (extra ? extra.preco * qtd : 0);
-		}, 0);
-		const precoTotal = precoBase + precoBorda + precoExtras;
-
-		const handleBorda = (nome) => {
-			setBorda(bordaAtual => bordaAtual === nome ? '' : nome);
-		};
-
-		const handleExtra = (nome, delta) => {
-			setExtras(extras => {
-				const atual = extras[nome] || 0;
-				const novo = Math.max(0, atual + delta);
-				return { ...extras, [nome]: novo };
-			});
-		};
-
-	const adicionarAoCarrinho = () => {
-		toast.success(`Pizza "${pizza.nome}" adicionada ao carrinho!`);
-		// Aqui você pode integrar com o contexto/carrinho global se quiser
+	const handleBorda = (nome) => {
+		setBorda(bordaAtual => bordaAtual === nome ? '' : nome);
 	};
+
+	const handleExtra = (nome, delta) => {
+		setExtras(extras => {
+			const atual = extras[nome] || 0;
+			const novo = Math.max(0, atual + delta);
+			return { ...extras, [nome]: novo };
+		});
+	};
+
+
+		const handleAdicionarAoCarrinho = () => {
+			// Monta o objeto da pizza com as opções selecionadas
+			const pizzaCarrinho = {
+				...pizza,
+				tamanho: tamanho.nome,
+				borda,
+				extras: { ...extras },
+				preco: precoTotal
+			};
+			adicionarAoCarrinho(pizzaCarrinho);
+		};
 
 		return (
 			<div className="pizza-card-individual">
@@ -136,7 +146,7 @@ const PizzaCard = () => {
 				</div>
 
 				<h3>Preço: R$ {precoTotal.toFixed(2)}</h3>
-				<button onClick={adicionarAoCarrinho}>Adicionar ao Carrinho</button>
+				   <button onClick={handleAdicionarAoCarrinho}>Adicionar ao Carrinho</button>
 				<button style={{marginLeft: 16}} onClick={() => navigate(-1)}>Voltar</button>
 			</div>
 		);
