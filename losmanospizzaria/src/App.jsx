@@ -7,7 +7,9 @@ import { CartProvider } from './context/CarrinhoContext'
 import { AuthProvider } from './context/AuthProvider'
 
 import Header from './components/Header'
+
 import Cardapio from './pages/Cardapio'
+import PizzaCard from './components/PizzaCard'
 import Carrinho from './pages/Carrinho'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
@@ -30,6 +32,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Cardapio pizzas={pizzasData.pizzas} />} />
                 <Route path="/cardapio" element={<Cardapio pizzas={pizzasData.pizzas} />} />
+                <Route path="/pizza/:id" element={<PizzaCard />} />
                 <Route path="/carrinho" element={<Carrinho />} />
                 <Route path="/login" element={<Login />} />
                 <Route 
