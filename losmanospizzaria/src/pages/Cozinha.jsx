@@ -1,29 +1,35 @@
-import React from 'react'
-import { useCart } from '../context/CarrinhoContext';
 
-const Cozinha = ({pizzas}) => {
-  const { mostrarPedidos } = useCart();
-  const { pedidoPronto } = useCart();
+import React from 'react';
+
+export default function Cozinha() {
+  const [pedidos, setPedidos] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('http://localhost:3001/pedidos')
+      .then(res => res.json())
+      .then(data => setPedidos(data));
+  }, []);
+
   return (
     <main className='principal'>
-      <h2>Menu de pedidos</h2>
-      {(pizzas || []).map((pizza) =>(
-        <div className='cardapio-item' key={pizza.id}>
-          <div className='thumb'>
-            <img
-              src={new URL(`../assets/imagens/${pizza.imagem}`, import.meta.url).href}
-              alt={`Pizza ${pizza.nome}`}
-            />            
-          </div>
-          <div className='detalhes'>
-            <h3>{pizza.nome}</h3>
-            <p>{pizza.descricao}</p>
-            <p><strong>Ingredientes:</strong> {pizza.ingredientes.join(", ")}</p>
-            <p className='preco'>Preço: R$ {pizza.preco.toFixed(2)}</p>
-          </div>
+      <h2>Pedidos em preparação</h2>
+      {pedidos.length === 0 && <p>Nenhum pedido encontrado.</p>}
+      {pedidos.map((pedido) => (
+        <div className='cardapio-item' key={pedido.id} style={{marginBottom: 24, background: '#fff7ec', borderRadius: 12, padding: 18, boxShadow: '0 2px 8px #f39c1233'}}>
+          <h3 style={{color:'#d35400'}}>Pedido #{pedido.id} - {pedido.cliente || 'Cliente'}</h3>
+          <ul style={{marginLeft: 0, paddingLeft: 18}}>
+            {pedido.itens.map((item, idx) => (
+              <li key={idx} style={{marginBottom: 8}}>
+                <strong>{item.nome}</strong> &times; {item.quantidade}<br/>
+                <span>Ingredientes: {item.ingredientes ? item.ingredientes.join(', ') : '-'}</span><br/>
+                {item.extras && item.extras.length > 0 && (
+                  <span>Extras: {item.extras.join(', ')}</span>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
     </main>
   );
-};
-export default Cozinha;
+}
