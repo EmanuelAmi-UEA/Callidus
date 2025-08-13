@@ -11,7 +11,7 @@
         "Azeite de oliva"
       ],
       "categoria": "tradicional",
-      "imagem": "margherita.jpg",
+  "imagem": "margherita.jpeg",
       "descricao": "A clássica pizza italiana com ingredientes frescos e sabor autêntico."
     },
     {
@@ -25,7 +25,7 @@
         "Orégano"
       ],
       "categoria": "tradicional",
-      "imagem": "pepperoni.jpg",
+  "imagem": "pepperoni.jpeg",
       "descricao": "Pizza saborosa com fatias de pepperoni e queijo derretido."
     },
     {
@@ -40,7 +40,7 @@
         "Orégano"
       ],
       "categoria": "tradicional",
-      "imagem": "calabresa.jpg",
+  "imagem": "calabresa.jpeg",
       "descricao": "Pizza brasileira tradicional com calabresa e cebola."
     },
     {
@@ -55,7 +55,7 @@
         "Provolone"
       ],
       "categoria": "especial",
-      "imagem": "quatro-queijos.jpg",
+  "imagem": "quatro-queijos.jpeg",
       "descricao": "Uma combinação irresistível de quatro queijos selecionados."
     },
     {
@@ -72,7 +72,7 @@
         "Ervilha"
       ],
       "categoria": "especial",
-      "imagem": "portuguesa.jpg",
+  "imagem": "portuguesa.jpeg",
       "descricao": "Pizza completa com presunto, ovos e vegetais frescos."
     },
     {
@@ -87,7 +87,7 @@
         "Milho"
       ],
       "categoria": "especial",
-      "imagem": "frango-catupiry.jpg",
+  "imagem": "frango-catupiry.jpeg",
       "descricao": "Deliciosa pizza com frango desfiado e cremoso catupiry."
     },
     {
@@ -105,7 +105,7 @@
         "Manjericão"
       ],
       "categoria": "vegetariana",
-      "imagem": "vegetariana.jpg",
+  "imagem": "vegetariana.jpeg",
       "descricao": "Pizza saudável com uma variedade de vegetais frescos."
     },
     {
@@ -121,7 +121,7 @@
         "Azeite de oliva"
       ],
       "categoria": "tradicional",
-      "imagem": "napolitana.jpg",
+  "imagem": "napolitana.jpeg",
       "descricao": "Pizza italiana simples e saborosa com tomates frescos."
     },
     {
@@ -136,7 +136,7 @@
         "Orégano"
       ],
       "categoria": "especial",
-      "imagem": "bacon.jpg",
+  "imagem": "bacon.jpeg",
       "descricao": "Pizza irresistível com bacon crocante e muito sabor."
     },
     {
@@ -152,7 +152,7 @@
         "Orégano"
       ],
       "categoria": "especial",
-      "imagem": "atum.jpg",
+  "imagem": "atum.jpeg",
       "descricao": "Pizza leve e saborosa com atum e azeitonas."
     },
     {
@@ -165,7 +165,7 @@
         "Granulado"
       ],
       "categoria": "doce",
-      "imagem": "chocolate.jpg",
+  "imagem": "chocolate.jpeg",
       "descricao": "Pizza doce irresistível com chocolate e morangos frescos."
     },
     {
@@ -179,7 +179,7 @@
         "Leite condensado"
       ],
       "categoria": "doce",
-      "imagem": "banana-canela.jpg",
+  "imagem": "banana-canela.jpeg",
       "descricao": "Pizza doce tradicional com banana e canela."
     }
   ]

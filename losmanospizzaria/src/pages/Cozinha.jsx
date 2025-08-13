@@ -11,7 +11,7 @@ const Cozinha = ({pizzas}) => {
         <div className='cardapio-item' key={pizza.id}>
           <div className='thumb'>
             <img
-              src={`/imagens/${pizza.imagem}`}
+              src={new URL(`../assets/imagens/${pizza.imagem}`, import.meta.url).href}
               alt={`Pizza ${pizza.nome}`}
             />            
           </div>

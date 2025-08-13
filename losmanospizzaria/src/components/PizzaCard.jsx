@@ -67,7 +67,7 @@ const PizzaCard = () => {
 
 		return (
 			<div className="pizza-card-individual">
-				<img src={`/imagens/${pizza.imagem}`} alt={pizza.nome} className="pizza-img-grande" />
+				   <img src={new URL(`../assets/imagens/${pizza.imagem}`, import.meta.url).href} alt={pizza.nome} className="pizza-img-grande" />
 				<h2>{pizza.nome}</h2>
 				<p>{pizza.descricao}</p>
 				<p><strong>Ingredientes:</strong> {pizza.ingredientes.join(', ')}</p>
