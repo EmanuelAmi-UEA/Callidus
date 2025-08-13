@@ -16,6 +16,7 @@ import Admin from './pages/Admin'
 import Cozinha from './pages/Cozinha'
 import Entregas from './pages/Entregas'
 import NotFound from './pages/NotFound'
+import Pagamento from './pages/Pagamento'
 import ProtectedRoute from './routes/ProtectedRoute'
 
 import pizzasData from './data/pizzas.json'
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/cardapio" element={<Cardapio pizzas={pizzasData.pizzas} />} />
                 <Route path="/pizza/:id" element={<PizzaCard />} />
                 <Route path="/carrinho" element={<Carrinho />} />
+                <Route path="/pagamento" element={<Pagamento />} />
                 <Route path="/login" element={<Login />} />
                 <Route 
                   path="/admin" 

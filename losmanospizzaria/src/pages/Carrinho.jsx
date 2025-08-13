@@ -1,5 +1,14 @@
 
 import React from 'react';
+
+// Função utilitária para garantir que a imagem venha do assets local
+function getPizzaImage(imgName) {
+  try {
+    return new URL(`../assets/imagens/${imgName}`, import.meta.url).href;
+  } catch {
+    return '';
+  }
+}
 import { useCart } from '../context/CarrinhoContext';
 import { Link } from 'react-router-dom';
 const CarrinhoPage = () => {
@@ -41,7 +50,7 @@ const CarrinhoPage = () => {
       <ul className="carrinho-lista">
         {cartItems.map(item => (
           <li key={item.id} className="carrinho-item">
-            <img src={item.imagem} alt={item.nome} width={60} />
+            <img src={getPizzaImage(item.imagem)} alt={item.nome} width={120} height={120} style={{ objectFit: 'cover' }} />  
             <div className="item-info">
               <span>{item.nome}</span>
               <span className="preco">R$ {item.preco}</span>

@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import pizzasData from '../data/pizzas.json';
 import { useCart } from '../context/CarrinhoContext';
 import "../css/PizzaCard.css"; // Importando o CSS específico para o componente PizzaCard
@@ -71,17 +70,18 @@ const PizzaCard = () => {
 	};
 
 
-		const handleAdicionarAoCarrinho = () => {
-			// Monta o objeto da pizza com as opções selecionadas
-			const pizzaCarrinho = {
-				...pizza,
-				tamanho: tamanho.nome,
-				borda,
-				extras: { ...extras },
-				preco: precoTotal
+
+			const handleAdicionarAoCarrinho = () => {
+				// Monta o objeto da pizza com as opções selecionadas
+				const pizzaCarrinho = {
+					...pizza,
+					tamanho: tamanho.nome,
+					borda,
+					extras: { ...extras },
+					preco: precoTotal
+				};
+				adicionarAoCarrinho(pizzaCarrinho);
 			};
-			adicionarAoCarrinho(pizzaCarrinho);
-		};
 
 		return (
 			<div className="pizza-card-individual">

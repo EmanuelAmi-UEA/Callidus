@@ -10,9 +10,11 @@ import Admin from '../pages/Admin';
 import Entregas from '../pages/Entregas';
 import Login from '../pages/Login';
 import NotFound from '../pages/NotFound';
+import Pagamento from '../pages/Pagamento';
+
 
 const AppRoutes = () => {
-	const { usuario, isAuthenticated } = useAuth();
+	const { usuario } = useAuth();
 	const isAdmin = usuario && usuario.email === 'admin@pizzaria.com';
 
 	return (
@@ -21,6 +23,7 @@ const AppRoutes = () => {
 			<Route path="/" element={<Navigate to="/cardapio" />} />
 			<Route path="/cardapio" element={<Cardapio />} />
 			<Route path="/carrinho" element={<Carrinho />} />
+			<Route path="/pagamento" element={<Pagamento />} />
 
 			{/* Login para admin */}
 			<Route path="/login" element={<Login />} />
