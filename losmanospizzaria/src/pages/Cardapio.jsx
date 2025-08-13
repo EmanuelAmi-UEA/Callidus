@@ -1,8 +1,16 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Cardapio = ({ pizzas }) => {
+const Cardapio = () => {
+  const [pizzas, setPizzas] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/pizzas") // pega as pizzas do json-server
+      .then(res => res.json())
+      .then(data => setPizzas(data))
+      .catch(err => console.error("Erro ao buscar pizzas:", err));
+  }, []);
+
   return (
     <main className='principal'>
       <h2>Cardápio de Pizzas</h2>
