@@ -11,6 +11,15 @@ const Cardapio = () => {
       .catch(err => console.error("Erro ao buscar pizzas:", err));
   }, []);
 
+  // Função para garantir que a imagem sempre venha do assets local
+  const getPizzaImage = (imgName) => {
+    try {
+      return new URL(`../assets/imagens/${imgName}`, import.meta.url).href;
+    } catch {
+      return '';
+    }
+  };
+
   return (
     <main className='principal'>
       <h2>Cardápio de Pizzas</h2>
@@ -24,7 +33,7 @@ const Cardapio = () => {
           >
             <div className='cardapio-img-area'>
               <img
-                src={new URL(`../assets/imagens/${pizza.imagem}`, import.meta.url).href}
+                src={getPizzaImage(pizza.imagem)}
                 alt={`Pizza ${pizza.nome}`}
                 className='cardapio-img'
               />

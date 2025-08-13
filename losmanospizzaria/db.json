@@ -6,7 +6,7 @@
       "preco": 25.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Manjericão fresco", "Azeite de oliva"],
       "categoria": "tradicional",
-      "imagem": "margherita.jpg",
+  "imagem": "margherita.jpeg",
       "descricao": "A clássica pizza italiana com ingredientes frescos e sabor autêntico.",
       "disponivel": true
     },
@@ -16,7 +16,7 @@
       "preco": 29.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Pepperoni", "Orégano"],
       "categoria": "tradicional",
-      "imagem": "pepperoni.jpg",
+  "imagem": "pepperoni.jpeg",
       "descricao": "Pizza saborosa com fatias de pepperoni e queijo derretido.",
       "disponivel": true
     },
@@ -26,7 +26,7 @@
       "preco": 27.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Calabresa", "Cebola", "Orégano"],
       "categoria": "tradicional",
-      "imagem": "calabresa.jpg",
+  "imagem": "calabresa.jpeg",
       "descricao": "Pizza brasileira tradicional com calabresa e cebola.",
       "disponivel": true
     },
@@ -36,7 +36,7 @@
       "preco": 32.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Gorgonzola", "Parmesão", "Provolone"],
       "categoria": "especial",
-      "imagem": "quatro-queijos.jpg",
+  "imagem": "quatro-queijos.jpeg",
       "descricao": "Uma combinação irresistível de quatro queijos selecionados.",
       "disponivel": true
     },
@@ -46,7 +46,7 @@
       "preco": 31.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Presunto", "Ovos", "Cebola", "Azeitona", "Ervilha"],
       "categoria": "especial",
-      "imagem": "portuguesa.jpg",
+  "imagem": "portuguesa.jpeg",
       "descricao": "Pizza completa com presunto, ovos e vegetais frescos.",
       "disponivel": true
     },
@@ -56,7 +56,7 @@
       "preco": 30.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Frango desfiado", "Catupiry", "Milho"],
       "categoria": "especial",
-      "imagem": "frango-catupiry.jpg",
+  "imagem": "frango-catupiry.jpeg",
       "descricao": "Deliciosa pizza com frango desfiado e cremoso catupiry.",
       "disponivel": true
     },
@@ -75,7 +75,7 @@
         "Manjericão"
       ],
       "categoria": "vegetariana",
-      "imagem": "vegetariana.jpg",
+  "imagem": "vegetariana.jpeg",
       "descricao": "Pizza saudável com uma variedade de vegetais frescos.",
       "disponivel": true
     },
@@ -85,7 +85,7 @@
       "preco": 26.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Tomate", "Manjericão", "Alho", "Azeite de oliva"],
       "categoria": "tradicional",
-      "imagem": "napolitana.jpg",
+  "imagem": "napolitana.jpeg",
       "descricao": "Pizza italiana simples e saborosa com tomates frescos.",
       "disponivel": true
     },
@@ -95,7 +95,7 @@
       "preco": 33.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Bacon", "Cebola", "Orégano"],
       "categoria": "especial",
-      "imagem": "bacon.jpg",
+  "imagem": "bacon.jpeg",
       "descricao": "Pizza irresistível com bacon crocante e muito sabor.",
       "disponivel": true
     },
@@ -105,7 +105,7 @@
       "preco": 29.9,
       "ingredientes": ["Molho de tomate", "Mussarela", "Atum", "Cebola", "Azeitona", "Orégano"],
       "categoria": "especial",
-      "imagem": "atum.jpg",
+  "imagem": "atum.jpeg",
       "descricao": "Pizza leve e saborosa com atum e azeitonas.",
       "disponivel": true
     },
@@ -115,7 +115,7 @@
       "preco": 24.9,
       "ingredientes": ["Chocolate ao leite", "Morango", "Granulado"],
       "categoria": "doce",
-      "imagem": "chocolate.jpg",
+  "imagem": "chocolate.jpeg",
       "descricao": "Pizza doce irresistível com chocolate e morangos frescos.",
       "disponivel": true
     },
@@ -125,7 +125,7 @@
       "preco": 22.9,
       "ingredientes": ["Banana", "Canela", "Açúcar", "Leite condensado"],
       "categoria": "doce",
-      "imagem": "banana-canela.jpg",
+  "imagem": "banana-canela.jpeg",
       "descricao": "Pizza doce tradicional com banana e canela.",
       "disponivel": true
     }
