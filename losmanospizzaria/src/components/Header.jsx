@@ -3,12 +3,13 @@ import { Link, useLocation } from 'react-router-dom'
 import { useCart } from '../context/CarrinhoContext'
 import { useAuth } from '../context/AuthContext'
 import '../css/header.css'
+import logo from '../assets/imagens/logo.jpeg';
 
 const Header = () => {
 
   const location = useLocation();
   const { cartItems } = useCart();
-  const { usuario, isAuthenticated, logout } = useAuth();
+  const { usuario, logout } = useAuth();
   const isAdmin = usuario && usuario.email === 'admin@pizzaria.com';
   const [show, setShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(window.scrollY);
@@ -32,7 +33,7 @@ const Header = () => {
     <header className={`app-header${show ? '' : ' header-hide'}`}>
       <div className='header-content'>
         <div className='logo-area'>
-          <img src='/assets/imagens/logo.jpeg' alt='Logo' className='header-logo'/>
+          <img src={logo} alt='Logo' className='header-logo'/>
           <span className='app-title'>LOS MANOS PIZZARIA</span>
         </div>
         <nav className='nav-links'>

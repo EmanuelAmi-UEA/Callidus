@@ -1,12 +1,4 @@
 import Relatorios from './pages/Relatorios';
-                <Route 
-                  path="/admin/relatorios" 
-                  element={
-                    <ProtectedRoute>
-                      <Relatorios />
-                    </ProtectedRoute>
-                  }
-                />
 import GerenciarCardapio from './pages/GerenciarCardapio';
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
