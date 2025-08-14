@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Entregas = () => {
+export default function Entregas() {
   const [entregas, setEntregas] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -122,6 +123,4 @@ const Entregas = () => {
       )}
     </div>
   );
-};
-
-export default Entregas;
+}

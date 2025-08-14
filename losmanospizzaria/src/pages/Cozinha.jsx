@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Cozinha() {
   const [pedidos, setPedidos] = useState([]);
@@ -7,6 +7,12 @@ export default function Cozinha() {
   const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
   const [entregador, setEntregador] = useState("");
   const entregadores = ["Carlos", "Roberto", "Ana", "João", "Maria"];
+
+  useEffect(() => {
+    fetch('http://localhost:5000/pedidos')
+      .then(res => res.json())
+      .then(data => setPedidos(data));
+  }, []);
 
   const abrirModal = (pedido) => {
     setPedidoSelecionado(pedido);
@@ -54,13 +60,6 @@ export default function Cozinha() {
     fecharModal();
   };
 
-
-  React.useEffect(() => {
-    fetch('http://localhost:5000/pedidos')
-      .then(res => res.json())
-      .then(data => setPedidos(data));
-  }, []);
-
   return (
     <main className='principal'>
       <h2>Pedidos em preparação</h2>
@@ -71,7 +70,7 @@ export default function Cozinha() {
             Pedido #{pedido.id}
             {` - ${(pedido.nomeCliente || pedido.cliente || 'Cliente')}`}
             {pedido.status && (
-              <span style={{ marginLeft: 12, color: pedido.status === "pronto" ? "green" : "#d35400" }}>
+              <span style={{ marginLeft: 12, color: pedido.status === "pronto_entrega" ? "green" : "#d35400" }}>
                 [{pedido.status}]
               </span>
             )}
@@ -87,7 +86,7 @@ export default function Cozinha() {
               </li>
             ))}
           </ul>
-          {pedido.status !== "pronto" && (
+          {pedido.status !== "pronto_entrega" && (
             <button onClick={() => abrirModal(pedido)} style={{ marginTop: 12, padding: '6px 12px' }}>
               Marcar como pronto
             </button>
