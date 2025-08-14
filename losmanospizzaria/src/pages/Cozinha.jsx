@@ -5,7 +5,7 @@ export default function Cozinha() {
   const [pedidos, setPedidos] = React.useState([]);
 
   React.useEffect(() => {
-    fetch('http://localhost:3001/pedidos')
+    fetch('http://localhost:5000/pedidos')
       .then(res => res.json())
       .then(data => setPedidos(data));
   }, []);

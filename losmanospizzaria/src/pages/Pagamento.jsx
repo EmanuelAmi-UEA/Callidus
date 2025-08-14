@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCart } from '../context/CarrinhoContext';
 import '/src/css/Pagamento.css'
 import qrCodePix from '../assets/imagens/qrcodepix.jpg';
 import {ToastContainer, toast} from 'react-toastify';
@@ -26,13 +27,28 @@ function validaCPF(cpf) {
   return secondDigit === digits[10];
 }
 
-const FormularioPix = ({ onSubmit, errors }) => (
+
+// Formulário base para nome do cliente
+const NomeClienteForm = ({ nomeCliente, setNomeCliente, error }) => (
+  <div className="form-group">
+    <label htmlFor="nomeCliente">Nome do Cliente</label>
+    <input
+      className={`input ${error ? 'error' : ''}`}
+      type="text"
+      id="nomeCliente"
+      name="nomeCliente"
+      value={nomeCliente}
+      onChange={e => setNomeCliente(e.target.value)}
+      placeholder="Digite seu nome para o pedido"
+      required
+    />
+    {error && <p className="error-message">{error}</p>}
+  </div>
+);
+
+const FormularioPix = ({ onSubmit, errors, nomeCliente, setNomeCliente }) => (
   <form onSubmit={onSubmit} noValidate>
-    <div className="form-group">
-      <label htmlFor="nomeCompleto">Nome Completo</label>
-      <input className={`input ${errors.nomeCompleto ? 'error' : ''}`} type="text" id="nomeCompleto" name="nomeCompleto" />
-      {errors.nomeCompleto && <p className="error-message">{errors.nomeCompleto}</p>}
-    </div>
+    <NomeClienteForm nomeCliente={nomeCliente} setNomeCliente={setNomeCliente} error={errors.nomeCliente} />
     <div className="form-group">
       <label htmlFor="cpf">CPF</label>
       <input className={`input ${errors.cpf ? 'error' : ''}`} type="text" id="cpf" name="cpf" placeholder="000.000.000-00" />
@@ -42,17 +58,13 @@ const FormularioPix = ({ onSubmit, errors }) => (
   </form>
 );
 
-const FormularioCartao = ({ onSubmit, errors }) => (
+const FormularioCartao = ({ onSubmit, errors, nomeCliente, setNomeCliente }) => (
   <form onSubmit={onSubmit} noValidate>
+    <NomeClienteForm nomeCliente={nomeCliente} setNomeCliente={setNomeCliente} error={errors.nomeCliente} />
     <div className="form-group">
       <label htmlFor="numeroCartao">Número do Cartão</label>
       <input className={`input ${errors.numeroCartao ? 'error' : ''}`} type="text" id="numeroCartao" name="numeroCartao" placeholder="0000 0000 0000 0000" maxLength="19" />
       {errors.numeroCartao && <p className="error-message">{errors.numeroCartao}</p>}
-    </div>
-    <div className="form-group">
-      <label htmlFor="nomeCartao">Nome no Cartão</label>
-      <input className={`input ${errors.nomeCartao ? 'error' : ''}`} type="text" id="nomeCartao" name="nomeCartao" />
-      {errors.nomeCartao && <p className="error-message">{errors.nomeCartao}</p>}
     </div>
     <div className="input-row">
       <div className="form-group">
@@ -74,62 +86,86 @@ export default function Pagamento() {
   const [metodoPagamento, setMetodoPagamento] = useState('pix');
   const [errors, setErrors] = useState({}); 
   const [qrCodeVisible, setQrCodeVisible] = useState(false);
+  const { cartItems, infoEntrega, setInfoEntrega } = useCart();
 
 
   const validate = (formData) => {
     const newErrors = {};
-
-
+    if (!nomeCliente || nomeCliente.trim().length < 2) {
+      newErrors.nomeCliente = 'O nome do cliente é obrigatório.';
+    }
     if (metodoPagamento === 'pix') {
-      if (!formData.nomeCompleto) newErrors.nomeCompleto = 'O nome completo é obrigatório.';
-      else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(formData.nomeCompleto)) newErrors.nomeCompleto = 'O nome deve conter apenas letras e espaços.';
-      
       if (!formData.cpf) newErrors.cpf = 'O CPF é obrigatório.';
       else if (!validaCPF(formData.cpf)) newErrors.cpf = 'CPF inválido.';
     }
-
     if (metodoPagamento === 'cartao') {
       const numeroCartaoLimpo = formData.numeroCartao.replace(/\s/g, '');
       if (!numeroCartaoLimpo) newErrors.numeroCartao = 'O número do cartão é obrigatório.';
       else if (!/^\d+$/.test(numeroCartaoLimpo)) newErrors.numeroCartao = 'O número do cartão deve conter apenas dígitos.';
       else if (numeroCartaoLimpo.length < 13 || numeroCartaoLimpo.length > 19) newErrors.numeroCartao = 'O número do cartão deve ter entre 13 e 19 dígitos.';
-
-      if (!formData.nomeCartao) newErrors.nomeCartao = 'O nome no cartão é obrigatório.';
-      else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(formData.nomeCartao)) newErrors.nomeCartao = 'O nome deve conter apenas letras e espaços.';
-      
       if (!formData.validade) newErrors.validade = 'A data de validade é obrigatória.';
       else if (!/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(formData.validade)) newErrors.validade = 'Formato inválido. Use MM/AA.';
-
       if (!formData.cvv) newErrors.cvv = 'O CVV é obrigatório.';
       else if (!/^\d{3,4}$/.test(formData.cvv)) newErrors.cvv = 'O CVV deve ter 3 ou 4 dígitos.';
     }
-
     return newErrors;
   };
 
 
-  const handleSubmit = (e) => {
+  const [nomeCliente, setNomeCliente] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({}); 
 
     const formData = Object.fromEntries(new FormData(e.target).entries());
     const validationErrors = validate(formData);
-    
-        if (Object.keys(validationErrors).length > 0) {
+  // nomeCliente já está no state
+
+    if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setQrCodeVisible(false); 
       return;
     }
-    
-    
+
     if (metodoPagamento === 'pix') {
       console.log('Dados PIX validados:', formData);
       toast('Validação OK! Gerando PIX...');
-  setQrCodeVisible(true);
+      setQrCodeVisible(true);
+      await enviarPedido(nomeCliente);
     } else {
       console.log('Dados do Cartão validados:', formData);
       toast('Validação OK! Processando pagamento...');
-  setQrCodeVisible(false);
+      setQrCodeVisible(false);
+      await enviarPedido(nomeCliente);
+    }
+  };
+
+  // Função para enviar pedido para o backend
+  async function enviarPedido(nome) {
+    if (!cartItems || cartItems.length === 0) return;
+    const total = cartItems.reduce((sum, item) => sum + Number(item.preco) * (item.quantidade || 1), 0);
+    const pedido = {
+      itens: cartItems,
+      infoEntrega,
+      nomeCliente: nome || nomeCliente,
+      total,
+      status: 'pendente',
+      data: new Date().toISOString()
+    };
+    try {
+      const resp = await fetch('http://localhost:5000/pedidos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pedido)
+      });
+      if (resp.ok) {
+        toast('Pedido enviado para a cozinha!');
+        // Limpa infoEntrega e carrinho se desejar (exemplo: setInfoEntrega(''))
+      } else {
+        toast.error('Erro ao enviar pedido para a cozinha!');
+      }
+    } catch (err) {
+      toast.error('Erro ao conectar com o backend!');
     }
   };
 
@@ -154,7 +190,7 @@ export default function Pagamento() {
 
         {metodoPagamento === 'pix' ? (
           <>
-            <FormularioPix onSubmit={handleSubmit} errors={errors} />
+            <FormularioPix onSubmit={handleSubmit} errors={errors} nomeCliente={nomeCliente} setNomeCliente={setNomeCliente} />
             {qrCodeVisible && (
               <div className="qr-code-box">
                 <p>Escaneie o QR Code para pagar com Pix:</p>
@@ -168,7 +204,7 @@ export default function Pagamento() {
             )}
           </>
         ) : (
-          <FormularioCartao onSubmit={handleSubmit} errors={errors} />
+          <FormularioCartao onSubmit={handleSubmit} errors={errors} nomeCliente={nomeCliente} setNomeCliente={setNomeCliente} />
         )}
       </div>
       <ToastContainer />
