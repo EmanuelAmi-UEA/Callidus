@@ -1,10 +1,17 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-    const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] = useState(() => {
+        const saved = localStorage.getItem('cartItems');
+        return saved ? JSON.parse(saved) : [];
+    });
+    // Salvar no localStorage sempre que cartItems mudar
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }, [cartItems]);
 
     
     const adicionarAoCarrinho = (pizzas) => {
@@ -62,6 +69,7 @@ export function CartProvider({ children }) {
 
     const value = {
         cartItems,
+        setCartItems,
         adicionarAoCarrinho,
         removerDoCarrinho,
         incrementarQuantidade,

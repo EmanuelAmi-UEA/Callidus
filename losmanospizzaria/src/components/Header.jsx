@@ -61,7 +61,6 @@ const Header = () => {
                 onClick={() => {
                   if (window.confirm('Deseja sair da área administrativa?')) {
                     logout();
-                    // Redireciona para o cardápio após logout
                     window.location.href = '/cardapio';
                   }
                 }}

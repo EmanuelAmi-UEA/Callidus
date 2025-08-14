@@ -14,20 +14,16 @@ const Admin = () => {
             <p>Adicionar, editar ou remover pizzas do cardápio</p>
             <button onClick={() => navigate('/admin/gercardapio')}>Gerenciar Cardápio</button>
           </div>
-          <div className="admin-card">
-            <h3>Pedidos</h3>
-            <p>Visualizar e gerenciar pedidos dos clientes</p>
-            <button>Ver Pedidos</button>
-          </div>
+          {/* Card de Pedidos removido */}
           <div className="admin-card">
             <h3>Relatórios</h3>
             <p>Relatórios de vendas e estatísticas</p>
             <button onClick={() => navigate('/admin/relatorios')}>Ver Relatórios</button>
           </div>
           <div className="admin-card">
-            <h3>Usuários</h3>
+            <h3>Funcionários</h3>
             <p>Gerenciar funcionários e permissões</p>
-            <button>Gerenciar Usuários</button>
+            <button onClick={() => navigate('/admin/gerenciar-funcionarios')}>Gerenciar Funcionários</button>
           </div>
         </div>
       </div>

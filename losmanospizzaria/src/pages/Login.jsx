@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
 
     if(email === "admin@pizzaria.com" && senha === "123456"){
-        login({nome:"Administrador", email},"fake-jwt-token");
+        login({nome:"Administrador", email}); // token será gerado pelo AuthProvider
         navigate("/");
     }else{
         setErro("E-mail ou senha inválidos");

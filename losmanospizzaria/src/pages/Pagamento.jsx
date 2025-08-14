@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { useCart } from '../context/CarrinhoContext'; // duplicado, já importado abaixo
 import '/src/css/Pagamento.css'
 import qrCodePix from '../assets/imagens/qrcodepix.jpg';
 import {ToastContainer, toast} from 'react-toastify';

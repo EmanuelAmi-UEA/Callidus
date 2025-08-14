@@ -195,7 +195,89 @@
       "disponivel": true
     }
   ],
-  "pedidos": [],
+  "funcionarios": [
+    {
+      "id": "1",
+      "nome": "João",
+      "funcao": "Motoboy",
+      "salario": 3000
+    },
+    {
+      "id": "2",
+      "nome": "Carlos",
+      "funcao": "Motoboy",
+      "salario": 1750
+    },
+    {
+      "id": "3",
+      "nome": "Roberto",
+      "funcao": "Motoboy",
+      "salario": 1850
+    },
+    {
+      "id": "4",
+      "nome": "Marina",
+      "funcao": "Cozinheiro",
+      "salario": 2200
+    },
+    {
+      "id": "5",
+      "nome": "Paulo",
+      "funcao": "Cozinheiro",
+      "salario": 2100
+    },
+    {
+      "id": "6",
+      "nome": "Juliana",
+      "funcao": "Cozinheiro",
+      "salario": 2250
+    },
+    {
+      "id": "7",
+      "nome": "Ana",
+      "funcao": "Atendente",
+      "salario": 1600
+    },
+    {
+      "id": "8",
+      "nome": "Lucas",
+      "funcao": "Atendente",
+      "salario": 1550
+    }
+  ],
+  "pedidos": [
+    {
+      "id": "b6e1",
+      "itens": [
+        {
+          "id": 3,
+          "nome": "Calabresa",
+          "preco": 67.64,
+          "ingredientes": [
+            "Molho de tomate",
+            "Mussarela",
+            "Calabresa",
+            "Cebola",
+            "Orégano"
+          ],
+          "categoria": "tradicional",
+          "imagem": "calabresa.jpeg",
+          "descricao": "Pizza brasileira tradicional com calabresa e cebola.",
+          "tamanho": "Grande",
+          "borda": "Borda de Catupiry",
+          "extras": {
+            "Cebola": 1
+          },
+          "quantidade": 1
+        }
+      ],
+      "infoEntrega": "fd, 234, Centro | Contato: 2352525252525",
+      "nomeCliente": "Emanuel Hernandez",
+      "total": 67.64,
+      "status": "pendente",
+      "data": "2025-08-14T13:09:49.264Z"
+    }
+  ],
   "entregas": [
     {
       "id": "4e8b",
@@ -222,6 +304,32 @@
       "status": "entregue",
       "entregador": "Carlos",
       "horario": "23:40"
+    },
+    {
+      "id": "d6c2",
+      "cliente": "Emanuel Hernandez",
+      "endereco": "Via local A, 12, Aleixo | Contato: (92)991566252",
+      "telefone": "(92)991566252",
+      "pizzas": [
+        "Pepperoni"
+      ],
+      "total": 29.9,
+      "status": "entregue",
+      "entregador": "Roberto",
+      "horario": "07:39"
+    },
+    {
+      "id": "355e",
+      "cliente": "Emanuel Hernandez",
+      "endereco": "guigui, 123, Aleixo | Contato: (92)991578954",
+      "telefone": "(92)991578954",
+      "pizzas": [
+        "Pepperoni"
+      ],
+      "total": 29.9,
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "07:39"
     }
   ],
   "historicoPedidos": [
@@ -235,6 +343,28 @@
         "Margherita"
       ],
       "data": "13/08/2025"
+    },
+    {
+      "id": "355e",
+      "valor": 29.9,
+      "horarioPedido": "07:39",
+      "horarioEntregue": "07:39",
+      "bairro": "Aleixo",
+      "sabores": [
+        "Pepperoni"
+      ],
+      "data": "14/08/2025"
+    },
+    {
+      "id": "d6c2",
+      "valor": 29.9,
+      "horarioPedido": "07:39",
+      "horarioEntregue": "07:39",
+      "bairro": "Aleixo",
+      "sabores": [
+        "Pepperoni"
+      ],
+      "data": "14/08/2025"
     }
   ],
   "usuarios": [

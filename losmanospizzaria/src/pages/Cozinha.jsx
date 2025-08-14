@@ -79,10 +79,12 @@ export default function Cozinha() {
             {pedido.itens.map((item, idx) => (
               <li key={idx} style={{marginBottom: 8}}>
                 <strong>{item.nome}</strong> &times; {item.quantidade}<br/>
-                <span>Ingredientes: {item.ingredientes ? item.ingredientes.join(', ') : '-'}</span><br/>
-                {item.extras && item.extras.length > 0 && (
-                  <span>Extras: {item.extras.join(', ')}</span>
+                {item.tamanho && <span><strong>Tamanho:</strong> {item.tamanho}<br/></span>}
+                {item.borda && <span><strong>Borda:</strong> {item.borda}<br/></span>}
+                {item.extras && Object.keys(item.extras).length > 0 && (
+                  <span><strong>Extras:</strong> {Object.entries(item.extras).filter(([_, qtd]) => qtd > 0).map(([nome, qtd]) => `${nome}${qtd > 1 ? ` (x${qtd})` : ''}`).join(', ')}<br/></span>
                 )}
+                <span>Ingredientes: {item.ingredientes ? item.ingredientes.join(', ') : '-'}</span>
               </li>
             ))}
           </ul>

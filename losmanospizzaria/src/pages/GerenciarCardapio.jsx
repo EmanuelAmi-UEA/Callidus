@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/gerCardapio.css';
 import { DataGrid } from '@mui/x-data-grid';
-import pizzasData from '../data/pizzas.json';
+// import pizzasData from '../data/pizzas.json';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

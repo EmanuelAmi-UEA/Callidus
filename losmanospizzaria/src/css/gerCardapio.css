@@ -4,7 +4,7 @@
   max-width: 1050px;
   margin: 0 auto;
   background: #fff;
-  border-radius: 18px;
+  border-radius: 8px;
   box-shadow: 0 6px 32px rgba(211,84,0,0.10), 0 2px 12px rgba(0,0,0,0.08);
   padding: 32px 18px 32px 18px;
   min-height: 520px;
@@ -24,7 +24,7 @@
   border: none !important;
   font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 5px;
 }
 
 .MuiDataGrid-columnHeaders {
@@ -32,7 +32,7 @@
   color: #d35400;
   font-size: 1.1rem;
   font-weight: 700;
-  border-radius: 12px 12px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 
 .MuiDataGrid-cell {
@@ -52,7 +52,7 @@
 
 .MuiDataGrid-footerContainer {
   background: #fafafa;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 5px 5px;
 }
 
 /* Botões de ação */
@@ -60,7 +60,7 @@
   background: linear-gradient(90deg, #d35400 0%, #f39c12 100%);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 6px 18px;
   font-size: 1rem;
   font-weight: 500;
@@ -76,7 +76,7 @@
 
 /* Dialog de edição */
 .MuiDialog-paper {
-  border-radius: 16px !important;
+  border-radius: 6px !important;
   box-shadow: 0 8px 32px rgba(211,84,0,0.12);
 }
 .MuiDialogTitle-root {

@@ -3,14 +3,8 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ProtectedRoute from './ProtectedRoute';
-import Cardapio from '../pages/Cardapio';
-import Carrinho from '../pages/Carrinho';
-import Cozinha from '../pages/Cozinha';
-import Admin from '../pages/Admin';
-import Entregas from '../pages/Entregas';
-import Login from '../pages/Login';
-import NotFound from '../pages/NotFound';
-import Pagamento from '../pages/Pagamento';
+
+import GerenciarFuncionarios from '../pages/GerenciarFuncionarios';
 
 
 const AppRoutes = () => {
@@ -37,6 +31,11 @@ const AppRoutes = () => {
 			<Route path="/admin" element={
 				<ProtectedRoute>
 					{isAdmin ? <Admin /> : <Navigate to="/login" />}
+				</ProtectedRoute>
+			} />
+			<Route path="/admin/gerenciar-funcionarios" element={
+				<ProtectedRoute>
+					{isAdmin ? <GerenciarFuncionarios /> : <Navigate to="/login" />}
 				</ProtectedRoute>
 			} />
 			<Route path="/entregas" element={

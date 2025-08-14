@@ -4,11 +4,16 @@ import React, { useState, useEffect } from 'react';
 export default function Entregas() {
   const [entregas, setEntregas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [motoboys, setMotoboys] = useState([]);
+  const [entregadorSelecionado, setEntregadorSelecionado] = useState({}); // idEntrega: nome
 
   useEffect(() => {
     fetch('http://localhost:5000/entregas')
       .then(res => res.json())
       .then(data => { setEntregas(data); setLoading(false); });
+    fetch('http://localhost:5000/funcionarios')
+      .then(res => res.json())
+      .then(data => setMotoboys(data.filter(f => f.funcao === 'Motoboy')));
   }, []);
 
   const atualizarEntrega = async (id, update) => {
@@ -26,7 +31,12 @@ export default function Entregas() {
   const handleSaiuEntrega = (id) => {
     const now = new Date();
     const horario = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    atualizarEntrega(id, { status: 'saiu_entrega', horario });
+    const entregador = entregadorSelecionado[id] || '';
+    if (!entregador) {
+      alert('Selecione o entregador!');
+      return;
+    }
+    atualizarEntrega(id, { status: 'saiu_entrega', horario, entregador });
   };
 
   const handleEntregue = async (id) => {
@@ -101,7 +111,18 @@ export default function Entregas() {
                 <p><strong>Cliente:</strong> {entrega.cliente}</p>
                 <p><strong>Telefone:</strong> {entrega.telefone}</p>
                 <p><strong>Endereço:</strong> {entrega.endereco}</p>
-                <p><strong>Entregador:</strong> {entrega.entregador}</p>
+                <p><strong>Entregador:</strong> {entrega.status === 'pronto_entrega' ? (
+                  <select
+                    value={entregadorSelecionado[entrega.id] || ''}
+                    onChange={e => setEntregadorSelecionado({ ...entregadorSelecionado, [entrega.id]: e.target.value })}
+                  >
+                    <option value="">Selecione o motoboy</option>
+                    {motoboys.map(m => (
+                      <option key={m.id} value={m.nome}>{m.nome}</option>
+                    ))}
+                  </select>
+                ) : entrega.entregador || '-'}
+                </p>
                 <p><strong>Horário saída:</strong> {entrega.horario || '-'}</p>
                 <p><strong>Pizzas:</strong> {Array.isArray(entrega.pizzas) ? entrega.pizzas.join(', ') : entrega.pizzas}</p>
                 <p><strong>Total:</strong> R$ {Number(entrega.total).toFixed(2)}</p>

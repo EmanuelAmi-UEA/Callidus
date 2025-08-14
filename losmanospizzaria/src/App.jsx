@@ -1,5 +1,6 @@
 import Relatorios from './pages/Relatorios';
 import GerenciarCardapio from './pages/GerenciarCardapio';
+import GerenciarFuncionarios from './pages/GerenciarFuncionarios';
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
@@ -79,6 +80,14 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                 <Route 
+                   path="/admin/gerenciar-funcionarios" 
+                   element={
+                     <ProtectedRoute>
+                       <GerenciarFuncionarios />
+                     </ProtectedRoute>
+                   }
+                 />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

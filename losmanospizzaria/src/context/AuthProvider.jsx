@@ -8,23 +8,26 @@ const AuthProvider = ({children}) => {
   const [token, setToken] = useState(null);
 
   //recupera usuario e token do localStorage ao iniciar
-  useEffect(() =>{
+  useEffect(() => {
     const tokenSalvo = localStorage.getItem("token");
     const usuarioSalvo = localStorage.getItem("usuario");
-
-    if(tokenSalvo && usuarioSalvo){
+    if (usuarioSalvo && tokenSalvo) {
       setToken(tokenSalvo);
       setUsuario(JSON.parse(usuarioSalvo));
     }
-
-  },[]);
+  }, []);
   
   //função para login
   const login = useCallback((usuarioData, tokenData) => {
-    localStorage.setItem("token", tokenData);
+    // Gera token se não existir
+    let token = tokenData;
+    if (!token) {
+      token = Math.random().toString(36).substring(2) + Date.now();
+    }
+    localStorage.setItem("token", token);
     localStorage.setItem("usuario", JSON.stringify(usuarioData));
     setUsuario(usuarioData);
-    setToken(tokenData);
+    setToken(token);
   },[]);
 
   //função de logout
