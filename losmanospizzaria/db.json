@@ -213,7 +213,7 @@
         }
       ],
       "total": 81.7,
-      "status": "preparando",
+      "status": "pronto",
       "dataHora": "2025-08-13T12:30:00Z",
       "cliente": "João Silva"
     },
@@ -234,7 +234,7 @@
         }
       ],
       "total": 60.8,
-      "status": "entregue",
+      "status": "pronto",
       "dataHora": "2025-08-12T19:45:00Z",
       "cliente": "Maria Oliveira"
     },
@@ -249,7 +249,7 @@
         }
       ],
       "total": 31.9,
-      "status": "em rota",
+      "status": "pronto",
       "dataHora": "2025-08-13T20:10:00Z",
       "cliente": "Carlos Souza"
     },
@@ -270,7 +270,7 @@
         }
       ],
       "total": 86.7,
-      "status": "entregue",
+      "status": "pronto",
       "dataHora": "2025-08-11T18:00:00Z",
       "cliente": "Ana Paula"
     },
@@ -291,7 +291,7 @@
         }
       ],
       "total": 74.7,
-      "status": "preparando",
+      "status": "pronto",
       "dataHora": "2025-08-13T13:15:00Z",
       "cliente": "Fernanda Lima"
     },
@@ -318,70 +318,9 @@
         }
       ],
       "total": 90.7,
-      "status": "entregue",
+      "status": "pronto",
       "dataHora": "2025-08-10T21:30:00Z",
       "cliente": "Lucas Martins"
-    },
-    {
-      "id": "5feb",
-      "itens": [
-        {
-          "id": 2,
-          "nome": "Pepperoni",
-          "preco": 29.9,
-          "ingredientes": [
-            "Molho de tomate",
-            "Mussarela",
-            "Pepperoni",
-            "Orégano"
-          ],
-          "categoria": "tradicional",
-          "imagem": "pepperoni.jpeg",
-          "descricao": "Pizza saborosa com fatias de pepperoni e queijo derretido.",
-          "tamanho": "Pequena",
-          "borda": "",
-          "extras": {},
-          "quantidade": 1
-        }
-      ],
-      "infoEntrega": "",
-      "total": 29.9,
-      "status": "pendente",
-      "data": "2025-08-14T02:03:19.588Z"
-    },
-    {
-      "id": "92cf",
-      "itens": [
-        {
-          "id": 1,
-          "nome": "Margherita",
-          "preco": 39.9,
-          "ingredientes": [
-            "Molho de tomate",
-            "Mussarela",
-            "Manjericão fresco",
-            "Azeite de oliva"
-          ],
-          "categoria": "tradicional",
-          "imagem": "margherita.jpeg",
-          "descricao": "A clássica pizza italiana com ingredientes frescos e sabor autêntico.",
-          "tamanho": "Pequena",
-          "borda": "",
-          "extras": {
-            "Cebola": 1,
-            "Milho": 1,
-            "Calabresa": 1,
-            "Queijo": 1,
-            "Bacon": 1
-          },
-          "quantidade": 1
-        }
-      ],
-      "infoEntrega": "",
-      "nomeCliente": "Emanuel Ami ",
-      "total": 39.9,
-      "status": "pendente",
-      "data": "2025-08-14T02:07:59.154Z"
     }
   ],
   "usuarios": [
