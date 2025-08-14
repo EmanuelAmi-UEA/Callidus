@@ -1,41 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Entregas = () => {
-  const [entregas] = useState([
-    {
-      id: 1,
-      cliente: 'João Silva',
-      endereco: 'Rua das Flores, 123 - Centro',
-      telefone: '(11) 99999-1234',
-      pizzas: ['Margherita', 'Pepperoni'],
-      total: 55.80,
-      status: 'saiu_entrega',
-      entregador: 'Carlos',
-      horario: '19:30'
-    },
-    {
-      id: 2,
-      cliente: 'Maria Santos',
-      endereco: 'Av. Principal, 456 - Bairro Alto',
-      telefone: '(11) 88888-5678',
-      pizzas: ['Calabresa', 'Quatro Queijos'],
-      total: 60.80,
-      status: 'pronto_entrega',
-      entregador: 'Roberto',
-      horario: '19:45'
-    },
-    {
-      id: 3,
-      cliente: 'Pedro Costa',
-      endereco: 'Rua da Paz, 789 - Vila Nova',
-      telefone: '(11) 77777-9012',
-      pizzas: ['Portuguesa'],
-      total: 31.90,
-      status: 'entregue',
-      entregador: 'Ana',
-      horario: '19:15'
+  const [entregas, setEntregas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/entregas')
+      .then(res => res.json())
+      .then(data => { setEntregas(data); setLoading(false); });
+  }, []);
+
+  const atualizarEntrega = async (id, update) => {
+    const entrega = entregas.find(e => e.id === id);
+    if (!entrega) return;
+    const novaEntrega = { ...entrega, ...update };
+    await fetch(`http://localhost:5000/entregas/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(update)
+    });
+    setEntregas(entregas.map(e => e.id === id ? novaEntrega : e));
+  };
+
+  const handleSaiuEntrega = (id) => {
+    const now = new Date();
+    const horario = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    atualizarEntrega(id, { status: 'saiu_entrega', horario });
+  };
+
+  const handleEntregue = async (id) => {
+    const entrega = entregas.find(e => e.id === id);
+    if (!entrega) return;
+    // Extrai bairro do endereço (espera formato: ...bairro...)
+    let bairro = '';
+    if (entrega.endereco) {
+      // Tenta extrair bairro após última vírgula
+      const partes = entrega.endereco.split(',');
+      if (partes.length >= 3) bairro = partes[2].split('|')[0].trim();
     }
-  ]);
+    // Horário de entrega
+    const horarioEntregue = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    // Data do pedido (usa id como referência, ou pode ser adicionado no futuro)
+    const dataPedido = new Date().toLocaleDateString();
+    // Monta registro do histórico
+    const historico = {
+      id: entrega.id,
+      valor: entrega.total,
+      horarioPedido: entrega.horario || '',
+      horarioEntregue,
+      bairro,
+      sabores: Array.isArray(entrega.pizzas) ? entrega.pizzas : [entrega.pizzas],
+      data: dataPedido
+    };
+    // Salva no backend
+    await fetch('http://localhost:5000/historicoPedidos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(historico)
+    });
+    atualizarEntrega(id, { status: 'entregue' });
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -58,34 +82,44 @@ const Entregas = () => {
   return (
     <div className="entregas-page">
       <h1>Entregas</h1>
-      <div className="entregas-container">
-        {entregas.map(entrega => (
-          <div key={entrega.id} className="entrega-card">
-            <div className="entrega-header">
-              <h3>Entrega #{entrega.id}</h3>
-              <span 
-                className="status-badge" 
-                style={{ backgroundColor: getStatusColor(entrega.status) }}
-              >
-                {getStatusText(entrega.status)}
-              </span>
+      {loading ? <p>Carregando entregas...</p> : (
+        <div className="entregas-container">
+          {entregas.length === 0 && <p>Nenhuma entrega no momento.</p>}
+          {entregas.map(entrega => (
+            <div key={entrega.id} className="entrega-card">
+              <div className="entrega-header">
+                <h3>Entrega #{entrega.id}</h3>
+                <span 
+                  className="status-badge" 
+                  style={{ backgroundColor: getStatusColor(entrega.status) }}
+                >
+                  {getStatusText(entrega.status)}
+                </span>
+              </div>
+              <div className="entrega-info">
+                <p><strong>Cliente:</strong> {entrega.cliente}</p>
+                <p><strong>Telefone:</strong> {entrega.telefone}</p>
+                <p><strong>Endereço:</strong> {entrega.endereco}</p>
+                <p><strong>Entregador:</strong> {entrega.entregador}</p>
+                <p><strong>Horário saída:</strong> {entrega.horario || '-'}</p>
+                <p><strong>Pizzas:</strong> {Array.isArray(entrega.pizzas) ? entrega.pizzas.join(', ') : entrega.pizzas}</p>
+                <p><strong>Total:</strong> R$ {Number(entrega.total).toFixed(2)}</p>
+              </div>
+              <div className="entrega-actions">
+                {entrega.status === 'pronto_entrega' && (
+                  <button className="btn-saiu" onClick={() => handleSaiuEntrega(entrega.id)}>Saiu para Entrega</button>
+                )}
+                {entrega.status === 'saiu_entrega' && (
+                  <button className="btn-entregue" onClick={() => handleEntregue(entrega.id)}>Marcar como Entregue</button>
+                )}
+                {entrega.status === 'entregue' && (
+                  <span style={{color:'#4caf50'}}>Entregue</span>
+                )}
+              </div>
             </div>
-            <div className="entrega-info">
-              <p><strong>Cliente:</strong> {entrega.cliente}</p>
-              <p><strong>Telefone:</strong> {entrega.telefone}</p>
-              <p><strong>Endereço:</strong> {entrega.endereco}</p>
-              <p><strong>Entregador:</strong> {entrega.entregador}</p>
-              <p><strong>Horário:</strong> {entrega.horario}</p>
-              <p><strong>Pizzas:</strong> {entrega.pizzas.join(', ')}</p>
-              <p><strong>Total:</strong> R$ {entrega.total.toFixed(2)}</p>
-            </div>
-            <div className="entrega-actions">
-              <button className="btn-saiu">Saiu para Entrega</button>
-              <button className="btn-entregue">Marcar como Entregue</button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

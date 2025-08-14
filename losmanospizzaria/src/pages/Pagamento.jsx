@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCart } from '../context/CarrinhoContext';
+// import { useCart } from '../context/CarrinhoContext'; // duplicado, já importado abaixo
 import '/src/css/Pagamento.css'
 import qrCodePix from '../assets/imagens/qrcodepix.jpg';
 import {ToastContainer, toast} from 'react-toastify';
@@ -86,11 +86,10 @@ const FormularioCartao = ({ onSubmit, errors, nomeCliente, setNomeCliente }) => 
 );
 
 export default function Pagamento() {
-  const { cartItems, infoEntrega, setCartItems } = useCart();
+  const { cartItems, infoEntrega, setInfoEntrega, setCartItems } = useCart();
   const [metodoPagamento, setMetodoPagamento] = useState('pix');
   const [errors, setErrors] = useState({}); 
   const [qrCodeVisible, setQrCodeVisible] = useState(false);
-  const { cartItems, infoEntrega, setInfoEntrega } = useCart();
 
 
   const validate = (formData) => {
@@ -164,34 +163,15 @@ export default function Pagamento() {
       });
       if (resp.ok) {
         toast('Pedido enviado para a cozinha!');
-        // Limpa infoEntrega e carrinho se desejar (exemplo: setInfoEntrega(''))
+        setCartItems([]); // limpa carrinho
+        setInfoEntrega('');
       } else {
         toast.error('Erro ao enviar pedido para a cozinha!');
       }
     } catch (err) {
       toast.error('Erro ao conectar com o backend!');
     }
-
-    const novoPedido = {
-      cliente: formData.nomeCompleto,
-      entrega: infoEntrega,
-      itens: cartItems,
-      status: "preparando"
-    };
-
-    fetch("http://localhost:5000/pedidos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(novoPedido)
-      })
-      .then(res => res.json())
-      .then(() => {
-        toast("Pedido registrado com sucesso!");
-        setCartItems([]); // limpa carrinho
-      })
-      .catch(err => console.error("Erro ao registrar pedido:", err));
-
-  };
+  }
 
 
   return (

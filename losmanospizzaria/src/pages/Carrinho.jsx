@@ -21,6 +21,15 @@ const CarrinhoPage = () => {
     setInfoEntrega
   } = useCart();
 
+  const [logradouro, setLogradouro] = React.useState("");
+  const [numero, setNumero] = React.useState("");
+  const [bairro, setBairro] = React.useState("");
+  const bairrosManaus = [
+    "Centro", "Adrianópolis", "Aleixo", "Alvorada", "Cachoeirinha", "Cidade Nova", "Compensa", "Coroado", "Dom Pedro", "Flores", "Japiim", "Parque 10", "Petrópolis", "Planalto", "Ponta Negra", "Praça 14", "Redenção", "São Geraldo", "São Jorge", "Tarumã", "Zumbi"
+  ];
+  const [contato, setContato] = React.useState("");
+  const [erroEntrega, setErroEntrega] = React.useState("");
+
   const total = cartItems.reduce((sum, item) => sum + Number(item.preco) * (item.quantidade || 1), 0);
 
   if (cartItems.length === 0) {
@@ -32,21 +41,57 @@ const CarrinhoPage = () => {
     );
   }
 
+  // Função para validar e montar infoEntrega antes de ir para pagamento
+  const handleFinalizar = (e) => {
+    if (!logradouro.trim() || !numero.trim() || !bairro.trim() || !contato.trim()) {
+      setErroEntrega("Preencha todos os campos de endereço e o número de contato antes de finalizar!");
+      e.preventDefault();
+      return;
+    }
+    setErroEntrega("");
+    setInfoEntrega(`${logradouro}, ${numero}, ${bairro} | Contato: ${contato}`);
+  };
+
   return (
     <div className="carrinho">
       <h2>Seu Carrinho</h2>
 
-      <label htmlFor="infoEntrega" style={{ marginBottom: 10, display: 'block'}}>
-        Informe a mesa ou endereço para entrega:
-      </label>
-      <input
-        id="infoEntrega"
-        type="text"
-        value={infoEntrega}
-        onChange={(e) => setInfoEntrega(e.target.value)}
-        placeholder="Ex: Mesa 5 ou Rua das Flores, 123"
-        style={{ width: '100%', padding: 8, marginBottom: 20}} />
-        
+      <div style={{marginBottom: 20, background: '#fff7ec', borderRadius: 8, padding: 16}}>
+        <h4>Endereço para entrega</h4>
+        <div style={{display: 'flex', gap: 8, marginBottom: 8}}>
+          <input
+            type="text"
+            placeholder="Rua/Logradouro"
+            value={logradouro}
+            onChange={e => setLogradouro(e.target.value)}
+            style={{flex: 2, padding: 8}}
+          />
+          <input
+            type="text"
+            placeholder="Número"
+            value={numero}
+            onChange={e => setNumero(e.target.value)}
+            style={{flex: 1, padding: 8}}
+          />
+          <select
+            value={bairro}
+            onChange={e => setBairro(e.target.value)}
+            style={{flex: 2, padding: 8}}
+          >
+            <option value="">Selecione o bairro</option>
+            {bairrosManaus.map(b => <option key={b} value={b}>{b}</option>)}
+          </select>
+        </div>
+        <input
+          type="text"
+          placeholder="Número de contato (WhatsApp)"
+          value={contato}
+          onChange={e => setContato(e.target.value)}
+          style={{width: '100%', padding: 8, marginBottom: 8}}
+        />
+        {erroEntrega && <div style={{color: 'red', marginBottom: 8}}>{erroEntrega}</div>}
+      </div>
+
       <ul className="carrinho-lista">
         {cartItems.map(item => (
           <li key={item.id} className="carrinho-item">
@@ -73,7 +118,7 @@ const CarrinhoPage = () => {
       <div className="carrinho-total">
         <strong>Total:</strong> R$ {total.toFixed(2)}
       </div>
-      <Link to="/pagamento">
+      <Link to="/pagamento" onClick={handleFinalizar}>
         <button className="finalizar-compra-btn">Finalizar Compra</button>
       </Link>
     </div>

@@ -195,132 +195,46 @@
       "disponivel": true
     }
   ],
-  "pedidos": [
+  "pedidos": [],
+  "entregas": [
     {
-      "id": "1",
-      "itens": [
-        {
-          "id": 1,
-          "nome": "Margherita",
-          "preco": 25.9,
-          "quantidade": 2
-        },
-        {
-          "id": 2,
-          "nome": "Pepperoni",
-          "preco": 29.9,
-          "quantidade": 1
-        }
+      "id": "4e8b",
+      "cliente": "Emanuel Hernandez",
+      "endereco": "Via Local A, 21, Parque Dez | Contato: (92)991566252",
+      "telefone": "(92)991566252",
+      "pizzas": [
+        "Calabresa"
       ],
-      "total": 81.7,
-      "status": "pronto",
-      "dataHora": "2025-08-13T12:30:00Z",
-      "cliente": "João Silva"
+      "total": 27.9,
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "23:29"
     },
     {
-      "id": "2",
-      "itens": [
-        {
-          "id": 3,
-          "nome": "Calabresa",
-          "preco": 27.9,
-          "quantidade": 1
-        },
-        {
-          "id": 4,
-          "nome": "Quatro Queijos",
-          "preco": 32.9,
-          "quantidade": 1
-        }
+      "id": "c609",
+      "cliente": "Emanuel Hernandez",
+      "endereco": "Via local A, 12, Dom Pedro | Contato: (92)991566252",
+      "telefone": "(92)991566252",
+      "pizzas": [
+        "Margherita"
       ],
-      "total": 60.8,
-      "status": "pronto",
-      "dataHora": "2025-08-12T19:45:00Z",
-      "cliente": "Maria Oliveira"
-    },
+      "total": 25.9,
+      "status": "entregue",
+      "entregador": "Carlos",
+      "horario": "23:40"
+    }
+  ],
+  "historicoPedidos": [
     {
-      "id": "3",
-      "itens": [
-        {
-          "id": 5,
-          "nome": "Portuguesa",
-          "preco": 31.9,
-          "quantidade": 1
-        }
+      "id": "c609",
+      "valor": 25.9,
+      "horarioPedido": "23:40",
+      "horarioEntregue": "23:41",
+      "bairro": "Dom Pedro",
+      "sabores": [
+        "Margherita"
       ],
-      "total": 31.9,
-      "status": "pronto",
-      "dataHora": "2025-08-13T20:10:00Z",
-      "cliente": "Carlos Souza"
-    },
-    {
-      "id": "4",
-      "itens": [
-        {
-          "id": 6,
-          "nome": "Frango com Catupiry",
-          "preco": 30.9,
-          "quantidade": 2
-        },
-        {
-          "id": 11,
-          "nome": "Chocolate",
-          "preco": 24.9,
-          "quantidade": 1
-        }
-      ],
-      "total": 86.7,
-      "status": "pronto",
-      "dataHora": "2025-08-11T18:00:00Z",
-      "cliente": "Ana Paula"
-    },
-    {
-      "id": "5",
-      "itens": [
-        {
-          "id": 7,
-          "nome": "Vegetariana",
-          "preco": 28.9,
-          "quantidade": 1
-        },
-        {
-          "id": 12,
-          "nome": "Banana com Canela",
-          "preco": 22.9,
-          "quantidade": 2
-        }
-      ],
-      "total": 74.7,
-      "status": "pronto",
-      "dataHora": "2025-08-13T13:15:00Z",
-      "cliente": "Fernanda Lima"
-    },
-    {
-      "id": "6",
-      "itens": [
-        {
-          "id": 9,
-          "nome": "Bacon",
-          "preco": 33.9,
-          "quantidade": 1
-        },
-        {
-          "id": 10,
-          "nome": "Atum",
-          "preco": 29.9,
-          "quantidade": 1
-        },
-        {
-          "id": 8,
-          "nome": "Napolitana",
-          "preco": 26.9,
-          "quantidade": 1
-        }
-      ],
-      "total": 90.7,
-      "status": "pronto",
-      "dataHora": "2025-08-10T21:30:00Z",
-      "cliente": "Lucas Martins"
+      "data": "13/08/2025"
     }
   ],
   "usuarios": [
