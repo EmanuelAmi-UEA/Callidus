@@ -247,12 +247,12 @@
   ],
   "pedidos": [
     {
-      "id": "b6e1",
+      "id": "97a7",
       "itens": [
         {
           "id": 3,
           "nome": "Calabresa",
-          "preco": 67.64,
+          "preco": 35.9,
           "ingredientes": [
             "Molho de tomate",
             "Mussarela",
@@ -263,19 +263,19 @@
           "categoria": "tradicional",
           "imagem": "calabresa.jpeg",
           "descricao": "Pizza brasileira tradicional com calabresa e cebola.",
-          "tamanho": "Grande",
+          "tamanho": "Pequena",
           "borda": "Borda de Catupiry",
           "extras": {
-            "Cebola": 1
+            "Milho": 1
           },
           "quantidade": 1
         }
       ],
-      "infoEntrega": "fd, 234, Centro | Contato: 2352525252525",
-      "nomeCliente": "Emanuel Hernandez",
-      "total": 67.64,
+      "infoEntrega": "Rua Vasco da Gama, 33, Parque 10 | Contato: 92 97835-7846",
+      "nomeCliente": "Gandalf, o Cinzento",
+      "total": 35.9,
       "status": "pendente",
-      "data": "2025-08-14T13:09:49.264Z"
+      "data": "2025-08-14T13:27:48.522Z"
     }
   ],
   "entregas": [
@@ -330,6 +330,19 @@
       "status": "entregue",
       "entregador": "João",
       "horario": "07:39"
+    },
+    {
+      "id": "b6e1",
+      "cliente": "Emanuel Hernandez",
+      "endereco": "fd, 234, Centro | Contato: 2352525252525",
+      "telefone": "2352525252525",
+      "pizzas": [
+        "Calabresa"
+      ],
+      "total": 67.64,
+      "status": "entregue",
+      "entregador": "Roberto",
+      "horario": "10:28"
     }
   ],
   "historicoPedidos": [
@@ -363,6 +376,17 @@
       "bairro": "Aleixo",
       "sabores": [
         "Pepperoni"
+      ],
+      "data": "14/08/2025"
+    },
+    {
+      "id": "b6e1",
+      "valor": 67.64,
+      "horarioPedido": "10:28",
+      "horarioEntregue": "10:28",
+      "bairro": "Centro",
+      "sabores": [
+        "Calabresa"
       ],
       "data": "14/08/2025"
     }
