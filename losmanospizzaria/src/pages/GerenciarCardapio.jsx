@@ -9,6 +9,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 
+const API_URL = "http://localhost:5000/pizzas";
+
 const columns = [
   { field: 'nome', headerName: 'Nome', flex: 1 },
   { field: 'preco', headerName: 'Preço (R$)', flex: 1, type: 'number' },
@@ -27,13 +29,73 @@ export default function GerenciarCardapio() {
   const [editValues, setEditValues] = useState({ nome: '', preco: '', descricao: '', ingredientes: '' });
 
   useEffect(() => {
-    setPizzas(pizzasData.pizzas.map(p => ({ ...p, id: p.id })));
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => setPizzas(data))
+      .catch(() => setPizzas([]));
   }, []);
 
-  const handleRemove = (id) => {
+  // Remover pizza e registrar no histórico
+  const handleRemove = async (id) => {
+    const pizza = pizzas.find(p => p.id === id);
+    if (pizza) {
+      // Tenta buscar no histórico
+      const res = await fetch(`http://localhost:5000/pizzasHistorico/${id}`);
+      if (res.ok) {
+        // Já existe, atualiza
+        await fetch(`http://localhost:5000/pizzasHistorico/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(pizza)
+        });
+      } else {
+        // Não existe, cria
+        await fetch(`http://localhost:5000/pizzasHistorico`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(pizza)
+        });
+      }
+    }
+    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
     setPizzas(pizzas.filter(p => p.id !== id));
-    // Aqui você pode adicionar lógica para remover do backend
   };
+  // Restaurar pizza do histórico para o cardápio
+  const handleRestore = async (pizza) => {
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(pizza)
+    });
+    setPizzas([...pizzas, pizza]);
+  };
+  // Histórico de pizzas
+  const [historico, setHistorico] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:5000/pizzasHistorico')
+      .then(res => res.json())
+      .then(data => setHistorico(data))
+      .catch(() => setHistorico([]));
+  }, [pizzas]);
+
+  // Pizzas do histórico que não estão no cardápio atual
+  const pizzasRestauraveis = historico.filter(h => !pizzas.some(p => p.id === h.id));
+
+  // Interface para restaurar pizzas do histórico
+  const renderHistorico = () => (
+    <div style={{marginTop:32}}>
+      <h3>Pizzas Removidas / Histórico</h3>
+      {pizzasRestauraveis.length === 0 && <p>Nenhuma pizza removida disponível para restaurar.</p>}
+      <ul style={{listStyle:'none', padding:0}}>
+        {pizzasRestauraveis.map(pizza => (
+          <li key={pizza.id} style={{marginBottom:12, background:'#f8f8f8', borderRadius:8, padding:12, display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+            <span><b>{pizza.nome}</b> — R$ {Number(pizza.preco).toFixed(2)}</span>
+            <button className="gercardapio-btn" onClick={() => handleRestore(pizza)}>Restaurar</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
   const handleEditOpen = (pizza) => {
     setEditPizza(pizza);
@@ -41,7 +103,7 @@ export default function GerenciarCardapio() {
       nome: pizza.nome,
       preco: pizza.preco,
       descricao: pizza.descricao,
-      ingredientes: pizza.ingredientes.join(', '),
+      ingredientes: pizza.ingredientes.join(', ')
     });
   };
 
@@ -49,14 +111,20 @@ export default function GerenciarCardapio() {
     setEditPizza(null);
   };
 
-  const handleEditSave = () => {
-    setPizzas(pizzas.map(p =>
-      p.id === editPizza.id
-        ? { ...p, ...editValues, preco: Number(editValues.preco), ingredientes: editValues.ingredientes.split(',').map(i => i.trim()) }
-        : p
-    ));
+  const handleEditSave = async () => {
+    const updatedPizza = {
+      ...editPizza,
+      ...editValues,
+      preco: Number(editValues.preco),
+      ingredientes: editValues.ingredientes.split(',').map(i => i.trim())
+    };
+    await fetch(`${API_URL}/${editPizza.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedPizza)
+    });
+    setPizzas(pizzas.map(p => p.id === editPizza.id ? updatedPizza : p));
     setEditPizza(null);
-    // Aqui você pode adicionar lógica para salvar no backend
   };
 
   const handleEditChange = (e) => {
@@ -93,6 +161,7 @@ export default function GerenciarCardapio() {
           }}
         />
       </div>
+      {renderHistorico()}
       <Dialog open={!!editPizza} onClose={handleEditClose}>
         <DialogTitle>Editar Pizza</DialogTitle>
         <DialogContent>
