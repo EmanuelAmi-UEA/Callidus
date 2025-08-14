@@ -1,67 +1,103 @@
 {
   "pizzas": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Margherita",
       "preco": 25.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Manjericão fresco", "Azeite de oliva"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Manjericão fresco",
+        "Azeite de oliva"
+      ],
       "categoria": "tradicional",
-  "imagem": "margherita.jpeg",
+      "imagem": "margherita.jpeg",
       "descricao": "A clássica pizza italiana com ingredientes frescos e sabor autêntico.",
       "disponivel": true
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Pepperoni",
       "preco": 29.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Pepperoni", "Orégano"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Pepperoni",
+        "Orégano"
+      ],
       "categoria": "tradicional",
-  "imagem": "pepperoni.jpeg",
+      "imagem": "pepperoni.jpeg",
       "descricao": "Pizza saborosa com fatias de pepperoni e queijo derretido.",
       "disponivel": true
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Calabresa",
       "preco": 27.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Calabresa", "Cebola", "Orégano"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Calabresa",
+        "Cebola",
+        "Orégano"
+      ],
       "categoria": "tradicional",
-  "imagem": "calabresa.jpeg",
+      "imagem": "calabresa.jpeg",
       "descricao": "Pizza brasileira tradicional com calabresa e cebola.",
       "disponivel": true
     },
     {
-      "id": 4,
+      "id": "4",
       "nome": "Quatro Queijos",
       "preco": 32.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Gorgonzola", "Parmesão", "Provolone"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Gorgonzola",
+        "Parmesão",
+        "Provolone"
+      ],
       "categoria": "especial",
-  "imagem": "quatro-queijos.jpeg",
+      "imagem": "quatro-queijos.jpeg",
       "descricao": "Uma combinação irresistível de quatro queijos selecionados.",
       "disponivel": true
     },
     {
-      "id": 5,
+      "id": "5",
       "nome": "Portuguesa",
       "preco": 31.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Presunto", "Ovos", "Cebola", "Azeitona", "Ervilha"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Presunto",
+        "Ovos",
+        "Cebola",
+        "Azeitona",
+        "Ervilha"
+      ],
       "categoria": "especial",
-  "imagem": "portuguesa.jpeg",
+      "imagem": "portuguesa.jpeg",
       "descricao": "Pizza completa com presunto, ovos e vegetais frescos.",
       "disponivel": true
     },
     {
-      "id": 6,
+      "id": "6",
       "nome": "Frango com Catupiry",
       "preco": 30.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Frango desfiado", "Catupiry", "Milho"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Frango desfiado",
+        "Catupiry",
+        "Milho"
+      ],
       "categoria": "especial",
-  "imagem": "frango-catupiry.jpeg",
+      "imagem": "frango-catupiry.jpeg",
       "descricao": "Deliciosa pizza com frango desfiado e cremoso catupiry.",
       "disponivel": true
     },
     {
-      "id": 7,
+      "id": "7",
       "nome": "Vegetariana",
       "preco": 28.9,
       "ingredientes": [
@@ -75,132 +111,248 @@
         "Manjericão"
       ],
       "categoria": "vegetariana",
-  "imagem": "vegetariana.jpeg",
+      "imagem": "vegetariana.jpeg",
       "descricao": "Pizza saudável com uma variedade de vegetais frescos.",
       "disponivel": true
     },
     {
-      "id": 8,
+      "id": "8",
       "nome": "Napolitana",
       "preco": 26.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Tomate", "Manjericão", "Alho", "Azeite de oliva"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Tomate",
+        "Manjericão",
+        "Alho",
+        "Azeite de oliva"
+      ],
       "categoria": "tradicional",
-  "imagem": "napolitana.jpeg",
+      "imagem": "napolitana.jpeg",
       "descricao": "Pizza italiana simples e saborosa com tomates frescos.",
       "disponivel": true
     },
     {
-      "id": 9,
+      "id": "9",
       "nome": "Bacon",
       "preco": 33.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Bacon", "Cebola", "Orégano"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Bacon",
+        "Cebola",
+        "Orégano"
+      ],
       "categoria": "especial",
-  "imagem": "bacon.jpeg",
+      "imagem": "bacon.jpeg",
       "descricao": "Pizza irresistível com bacon crocante e muito sabor.",
       "disponivel": true
     },
     {
-      "id": 10,
+      "id": "10",
       "nome": "Atum",
       "preco": 29.9,
-      "ingredientes": ["Molho de tomate", "Mussarela", "Atum", "Cebola", "Azeitona", "Orégano"],
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Atum",
+        "Cebola",
+        "Azeitona",
+        "Orégano"
+      ],
       "categoria": "especial",
-  "imagem": "atum.jpeg",
+      "imagem": "atum.jpeg",
       "descricao": "Pizza leve e saborosa com atum e azeitonas.",
       "disponivel": true
     },
     {
-      "id": 11,
+      "id": "11",
       "nome": "Chocolate",
       "preco": 24.9,
-      "ingredientes": ["Chocolate ao leite", "Morango", "Granulado"],
+      "ingredientes": [
+        "Chocolate ao leite",
+        "Morango",
+        "Granulado"
+      ],
       "categoria": "doce",
-  "imagem": "chocolate.jpeg",
+      "imagem": "chocolate.jpeg",
       "descricao": "Pizza doce irresistível com chocolate e morangos frescos.",
       "disponivel": true
     },
     {
-      "id": 12,
+      "id": "12",
       "nome": "Banana com Canela",
       "preco": 22.9,
-      "ingredientes": ["Banana", "Canela", "Açúcar", "Leite condensado"],
+      "ingredientes": [
+        "Banana",
+        "Canela",
+        "Açúcar",
+        "Leite condensado"
+      ],
       "categoria": "doce",
-  "imagem": "banana-canela.jpeg",
+      "imagem": "banana-canela.jpeg",
       "descricao": "Pizza doce tradicional com banana e canela.",
       "disponivel": true
     }
   ],
   "pedidos": [
     {
-      "id": 1,
+      "id": "1",
       "itens": [
-        { "id": 1, "nome": "Margherita", "preco": 25.9, "quantidade": 2 },
-        { "id": 2, "nome": "Pepperoni", "preco": 29.9, "quantidade": 1 }
+        {
+          "id": 1,
+          "nome": "Margherita",
+          "preco": 25.9,
+          "quantidade": 2
+        },
+        {
+          "id": 2,
+          "nome": "Pepperoni",
+          "preco": 29.9,
+          "quantidade": 1
+        }
       ],
       "total": 81.7,
-      "status": "preparando",
+      "status": "pronto",
       "dataHora": "2025-08-13T12:30:00Z",
       "cliente": "João Silva"
     },
     {
-      "id": 2,
+      "id": "2",
       "itens": [
-        { "id": 3, "nome": "Calabresa", "preco": 27.9, "quantidade": 1 },
-        { "id": 4, "nome": "Quatro Queijos", "preco": 32.9, "quantidade": 1 }
+        {
+          "id": 3,
+          "nome": "Calabresa",
+          "preco": 27.9,
+          "quantidade": 1
+        },
+        {
+          "id": 4,
+          "nome": "Quatro Queijos",
+          "preco": 32.9,
+          "quantidade": 1
+        }
       ],
       "total": 60.8,
-      "status": "entregue",
+      "status": "pronto",
       "dataHora": "2025-08-12T19:45:00Z",
       "cliente": "Maria Oliveira"
     },
     {
-      "id": 3,
+      "id": "3",
       "itens": [
-        { "id": 5, "nome": "Portuguesa", "preco": 31.9, "quantidade": 1 }
+        {
+          "id": 5,
+          "nome": "Portuguesa",
+          "preco": 31.9,
+          "quantidade": 1
+        }
       ],
       "total": 31.9,
-      "status": "em rota",
+      "status": "pronto",
       "dataHora": "2025-08-13T20:10:00Z",
       "cliente": "Carlos Souza"
     },
     {
-      "id": 4,
+      "id": "4",
       "itens": [
-        { "id": 6, "nome": "Frango com Catupiry", "preco": 30.9, "quantidade": 2 },
-        { "id": 11, "nome": "Chocolate", "preco": 24.9, "quantidade": 1 }
+        {
+          "id": 6,
+          "nome": "Frango com Catupiry",
+          "preco": 30.9,
+          "quantidade": 2
+        },
+        {
+          "id": 11,
+          "nome": "Chocolate",
+          "preco": 24.9,
+          "quantidade": 1
+        }
       ],
       "total": 86.7,
-      "status": "entregue",
+      "status": "pronto",
       "dataHora": "2025-08-11T18:00:00Z",
       "cliente": "Ana Paula"
     },
     {
-      "id": 5,
+      "id": "5",
       "itens": [
-        { "id": 7, "nome": "Vegetariana", "preco": 28.9, "quantidade": 1 },
-        { "id": 12, "nome": "Banana com Canela", "preco": 22.9, "quantidade": 2 }
+        {
+          "id": 7,
+          "nome": "Vegetariana",
+          "preco": 28.9,
+          "quantidade": 1
+        },
+        {
+          "id": 12,
+          "nome": "Banana com Canela",
+          "preco": 22.9,
+          "quantidade": 2
+        }
       ],
       "total": 74.7,
-      "status": "preparando",
+      "status": "pronto",
       "dataHora": "2025-08-13T13:15:00Z",
       "cliente": "Fernanda Lima"
     },
     {
-      "id": 6,
+      "id": "6",
       "itens": [
-        { "id": 9, "nome": "Bacon", "preco": 33.9, "quantidade": 1 },
-        { "id": 10, "nome": "Atum", "preco": 29.9, "quantidade": 1 },
-        { "id": 8, "nome": "Napolitana", "preco": 26.9, "quantidade": 1 }
+        {
+          "id": 9,
+          "nome": "Bacon",
+          "preco": 33.9,
+          "quantidade": 1
+        },
+        {
+          "id": 10,
+          "nome": "Atum",
+          "preco": 29.9,
+          "quantidade": 1
+        },
+        {
+          "id": 8,
+          "nome": "Napolitana",
+          "preco": 26.9,
+          "quantidade": 1
+        }
       ],
       "total": 90.7,
-      "status": "entregue",
+      "status": "pronto",
       "dataHora": "2025-08-10T21:30:00Z",
       "cliente": "Lucas Martins"
+    },
+    {
+      "id": "782c",
+      "entrega": "Mesa 5",
+      "itens": [
+        {
+          "id": 1,
+          "nome": "Margherita",
+          "preco": 45.67,
+          "ingredientes": [
+            "Molho de tomate",
+            "Mussarela",
+            "Manjericão fresco",
+            "Azeite de oliva"
+          ],
+          "categoria": "tradicional",
+          "imagem": "margherita.jpeg",
+          "descricao": "A clássica pizza italiana com ingredientes frescos e sabor autêntico.",
+          "tamanho": "Média",
+          "borda": "",
+          "extras": {
+            "Bacon": 1
+          },
+          "quantidade": 1
+        }
+      ],
+      "status": "pronto"
     }
   ],
   "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Administrador",
       "email": "admin@pizzaria.com",
       "senha": "123456",

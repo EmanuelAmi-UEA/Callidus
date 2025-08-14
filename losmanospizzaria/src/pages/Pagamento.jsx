@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import '/src/css/Pagamento.css'
 import qrCodePix from '../assets/imagens/qrcodepix.jpg';
 import {ToastContainer, toast} from 'react-toastify';
+import { useCart } from '../context/CarrinhoContext';
+
 
 
 function validaCPF(cpf) {
+
   if (typeof cpf !== 'string') return false;
   cpf = cpf.replace(/[^\d]/g, ''); 
   if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false; 
@@ -71,6 +74,7 @@ const FormularioCartao = ({ onSubmit, errors }) => (
 );
 
 export default function Pagamento() {
+  const { cartItems, infoEntrega, setCartItems } = useCart();
   const [metodoPagamento, setMetodoPagamento] = useState('pix');
   const [errors, setErrors] = useState({}); 
   const [qrCodeVisible, setQrCodeVisible] = useState(false);
@@ -131,7 +135,28 @@ export default function Pagamento() {
       toast('Validação OK! Processando pagamento...');
   setQrCodeVisible(false);
     }
+
+    const novoPedido = {
+      cliente: formData.nomeCompleto,
+      entrega: infoEntrega,
+      itens: cartItems,
+      status: "preparando"
+    };
+
+    fetch("http://localhost:5000/pedidos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(novoPedido)
+      })
+      .then(res => res.json())
+      .then(() => {
+        toast("Pedido registrado com sucesso!");
+        setCartItems([]); // limpa carrinho
+      })
+      .catch(err => console.error("Erro ao registrar pedido:", err));
+
   };
+
 
   return (
     <div className="payment-container">
