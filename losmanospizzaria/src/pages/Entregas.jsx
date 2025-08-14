@@ -1,41 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Entregas = () => {
-  const [entregas] = useState([
-    {
-      id: 1,
-      cliente: 'João Silva',
-      endereco: 'Rua das Flores, 123 - Centro',
-      telefone: '(11) 99999-1234',
-      pizzas: ['Margherita', 'Pepperoni'],
-      total: 55.80,
-      status: 'saiu_entrega',
-      entregador: 'Carlos',
-      horario: '19:30'
-    },
-    {
-      id: 2,
-      cliente: 'Maria Santos',
-      endereco: 'Av. Principal, 456 - Bairro Alto',
-      telefone: '(11) 88888-5678',
-      pizzas: ['Calabresa', 'Quatro Queijos'],
-      total: 60.80,
-      status: 'pronto_entrega',
-      entregador: 'Roberto',
-      horario: '19:45'
-    },
-    {
-      id: 3,
-      cliente: 'Pedro Costa',
-      endereco: 'Rua da Paz, 789 - Vila Nova',
-      telefone: '(11) 77777-9012',
-      pizzas: ['Portuguesa'],
-      total: 31.90,
-      status: 'entregue',
-      entregador: 'Ana',
-      horario: '19:15'
-    }
-  ]);
+export default function Entregas() {
+  const [entregas, setEntregas] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/pedidos')
+      .then(res => res.json())
+      .then(data => {
+        const pedidosParaEntrega = data.filter(p => p.status === 'pronto_entrega' || p.status === 'saiu_entrega');
+        setEntregas(pedidosParaEntrega);
+      })
+      .catch(err => console.error(err));
+  }, []);
+
+  const atualizarStatus = (id, novoStatus) => {
+    fetch(`http://localhost:5000/pedidos/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: novoStatus })
+    })
+      .then(res => res.json())
+      .then(() => {
+        setEntregas(prev => prev.map(p => p.id === id ? { ...p, status: novoStatus } : p));
+      });
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -58,15 +46,13 @@ const Entregas = () => {
   return (
     <div className="entregas-page">
       <h1>Entregas</h1>
+      {entregas.length === 0 && <p>Nenhum pedido pronto para entrega.</p>}
       <div className="entregas-container">
         {entregas.map(entrega => (
           <div key={entrega.id} className="entrega-card">
             <div className="entrega-header">
               <h3>Entrega #{entrega.id}</h3>
-              <span 
-                className="status-badge" 
-                style={{ backgroundColor: getStatusColor(entrega.status) }}
-              >
+              <span className="status-badge" style={{ backgroundColor: getStatusColor(entrega.status) }}>
                 {getStatusText(entrega.status)}
               </span>
             </div>
@@ -74,20 +60,29 @@ const Entregas = () => {
               <p><strong>Cliente:</strong> {entrega.cliente}</p>
               <p><strong>Telefone:</strong> {entrega.telefone}</p>
               <p><strong>Endereço:</strong> {entrega.endereco}</p>
-              <p><strong>Entregador:</strong> {entrega.entregador}</p>
-              <p><strong>Horário:</strong> {entrega.horario}</p>
-              <p><strong>Pizzas:</strong> {entrega.pizzas.join(', ')}</p>
-              <p><strong>Total:</strong> R$ {entrega.total.toFixed(2)}</p>
+              <p>
+                <strong>Pizzas:</strong> 
+                {entrega.itens?.length 
+                  ? entrega.itens.map(i => i.nome).join(', ') 
+                  : entrega.pizzas?.join(', ') || '-'}
+              </p>
+              <p><strong>Total:</strong> R$ {entrega.total?.toFixed(2) || '-'}</p>
             </div>
             <div className="entrega-actions">
-              <button className="btn-saiu">Saiu para Entrega</button>
-              <button className="btn-entregue">Marcar como Entregue</button>
+              {entrega.status === 'pronto_entrega' && (
+                <button onClick={() => atualizarStatus(entrega.id, 'saiu_entrega')} className="btn-saiu">
+                  Saiu para Entrega
+                </button>
+              )}
+              {entrega.status === 'saiu_entrega' && (
+                <button onClick={() => atualizarStatus(entrega.id, 'entregue')} className="btn-entregue">
+                  Marcar como Entregue
+                </button>
+              )}
             </div>
           </div>
         ))}
       </div>
     </div>
   );
-};
-
-export default Entregas;
+}

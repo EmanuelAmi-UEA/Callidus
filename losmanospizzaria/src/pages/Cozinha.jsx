@@ -1,20 +1,19 @@
-
 import React from 'react';
 
 export default function Cozinha() {
   const [pedidos, setPedidos] = React.useState([]);
-  const marcarComoPronto = (id) => {
-  fetch(`http://localhost:5000/pedidos/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "pronto" })
-  })
-    .then(res => res.json())
-    .then(() => {
-      setPedidos(prev => prev.map(p => p.id === id ? { ...p, status: "pronto" } : p));
-    });
-};
 
+  const marcarComoPronto = (id) => {
+    fetch(`http://localhost:5000/pedidos/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: "pronto_entrega" }) // mudando para pronto_entrega
+    })
+      .then(res => res.json())
+      .then(() => {
+        setPedidos(prev => prev.map(p => p.id === id ? { ...p, status: "pronto_entrega" } : p));
+      });
+  };
 
   React.useEffect(() => {
     fetch('http://localhost:5000/pedidos')
@@ -31,7 +30,7 @@ export default function Cozinha() {
           <h3 style={{color:'#d35400'}}>
             Pedido #{pedido.id} - {pedido.cliente || 'Cliente'} 
             {pedido.status && (
-              <span style={{ marginLeft: 12, color: pedido.status === "pronto" ? "green" : "#d35400" }}>
+              <span style={{ marginLeft: 12, color: pedido.status === "pronto_entrega" ? "green" : "#d35400" }}>
                 [{pedido.status}]
               </span>
             )}
@@ -47,9 +46,9 @@ export default function Cozinha() {
               </li>
             ))}
           </ul>
-          {pedido.status !== "pronto" && (
+          {pedido.status !== "pronto_entrega" && (
             <button onClick={() => marcarComoPronto(pedido.id)} style={{ marginTop: 12, padding: '6px 12px' }}>
-              Marcar como pronto
+              Marcar como pronto para entrega
             </button>
           )}
         </div>
