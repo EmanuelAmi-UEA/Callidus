@@ -42,7 +42,7 @@ const Header = () => {
           {/* Links para cliente (não autenticado como admin) */}
           {!isAdmin && (
             <>
-              <Link to="/" className={location.pathname === "/" ? "active" : ""}>Cardápio</Link>
+              <Link to="/cardapio" className={location.pathname === "/cardapio" ? "active" : ""}>Cardápio</Link>
               <Link to="/carrinho" className={location.pathname === "/carrinho" ? "active" : ""}>Carrinho</Link>
               <Link to="/login" className={location.pathname === "/login" ? "active" : ""}>Admin</Link>
               <div className="cart-info">
