@@ -37,23 +37,58 @@ const combos = [
   },
 ];
 
-const maisPedidos = [
-  "Calabresa",
-  "Frango com Catupiry",
-  "Quatro Queijos",
-  "Pepperoni",
-  "Portuguesa",
-];
 
+
+// Importação dinâmica de imagens usando Vite (import.meta.glob)
+const imagens = import.meta.glob('../assets/imagens/*.jpeg', { eager: true, as: 'url' });
+
+function getSaborImg(sabor, pizzas) {
+  const pizza = pizzas.find(p => p.nome === sabor);
+  if (pizza && pizza.imagem) {
+    // Monta o caminho relativo igual ao glob
+    const caminho = `../assets/imagens/${pizza.imagem}`;
+    return imagens[caminho] || "";
+  }
+  return "";
+}
 
 export default function Home() {
   const [promoIndex, setPromoIndex] = useState(0);
+  const [fade, setFade] = useState(true);
+  const [saboresMaisPedidos, setSaboresMaisPedidos] = useState([]);
+  const [pizzas, setPizzas] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPromoIndex((prev) => (prev + 1) % promocoes.length);
+      setFade(false);
+      setTimeout(() => {
+        setPromoIndex((prev) => (prev + 1) % promocoes.length);
+        setFade(true);
+      }, 350); // tempo do fade-out
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Buscar sabores mais pedidos e pizzas do backend
+  useEffect(() => {
+    async function fetchData() {
+      // Busca pizzas para pegar as imagens
+      const pizzasRes = await fetch('http://localhost:5000/pizzas');
+      const pizzasData = await pizzasRes.json();
+      setPizzas(pizzasData);
+
+      // Busca histórico de pedidos
+      const historicoRes = await fetch('http://localhost:5000/historicoPedidos');
+      const historicoData = await historicoRes.json();
+
+      // Lógica igual ao relatório: sabores mais pedidos
+      const sabores = Array.from(
+        historicoData.flatMap(p => p.sabores).reduce((map, s) => map.set(s, (map.get(s)||0)+1), new Map()),
+        ([nome, pedidos]) => ({ nome, pedidos })
+      ).sort((a,b)=>b.pedidos-a.pedidos).slice(0,5);
+      setSaboresMaisPedidos(sabores);
+    }
+    fetchData();
   }, []);
 
   return (
@@ -62,7 +97,7 @@ export default function Home() {
         <img
           src={promocoes[promoIndex].img}
           alt={promocoes[promoIndex].nome}
-          className="promo-img"
+          className={`promo-img${fade ? ' fade-in' : ' fade-out'}`}
         />
         <div className="promo-nome">{promocoes[promoIndex].nome}</div>
         <div className="promo-selector">
@@ -71,7 +106,7 @@ export default function Home() {
               >
               {promoIndex === idx && (
                 <span className="promo-progress" key={promoIndex}
-                  style={{ animation: `fill-progress 5s linear` }}
+                  style={{ animation: `fill-progress 4.95s linear` }}
                 />
               )}
             </span>
@@ -80,8 +115,11 @@ export default function Home() {
       </div>
         <h2 className="home-title">Sabores Mais Pedidos</h2>
         <ul className="mais-pedidos-list">
-          {maisPedidos.map((sabor) => (
-            <li key={sabor}>{sabor}</li>
+          {saboresMaisPedidos.map((sabor) => (
+            <li key={sabor.nome} className="mais-pedido-item">
+              <img src={getSaborImg(sabor.nome, pizzas)} alt={sabor.nome} className="mais-pedido-img" />
+              <span>{sabor.nome}</span>
+            </li>
           ))}
         </ul>
         <h2 className="home-title">Combos Especiais</h2>
@@ -93,7 +131,8 @@ export default function Home() {
               <span className="combo-preco">{combo.preco}</span>
             </div>
           ))}
+
         </div>
-  </div>
-  );
+      </div>
+    );
 }

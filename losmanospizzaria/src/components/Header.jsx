@@ -38,16 +38,18 @@ const Header = () => {
           <span className='app-title'>LOS MANOS PIZZARIA</span>
         </div>
         <nav className='nav-links'>
-          <Link to="/home" className={location.pathname === "/" || location.pathname === "/home" ? "active" : ""}>Home</Link>
           {/* Links para cliente (não autenticado como admin) */}
           {!isAdmin && (
             <>
+              <Link to="/home" className={location.pathname === "/" || location.pathname === "/home" ? "active" : ""}>Home</Link>
               <Link to="/cardapio" className={location.pathname === "/cardapio" ? "active" : ""}>Cardápio</Link>
-              <Link to="/carrinho" className={location.pathname === "/carrinho" ? "active" : ""}>Carrinho</Link>
+              <Link to="/carrinho" className={location.pathname === "/carrinho" ? "active" : ""}>
+              <span className='cart-link'>
+                <span role='img' aria-label='Carrinho'>🛒</span>
+                Carrinho {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+              </span>
+              </Link>
               <Link to="/login" className={location.pathname === "/login" ? "active" : ""}>Admin</Link>
-              <div className="cart-info">
-                🛒 {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
-              </div>
             </>
           )}
           {/* Links para admin autenticado */}
@@ -62,7 +64,7 @@ const Header = () => {
                 onClick={() => {
                   if (window.confirm('Deseja sair da área administrativa?')) {
                     logout();
-                    window.location.href = '/cardapio';
+                    window.location.href = '/home';
                   }
                 }}
               >Sair</button>
