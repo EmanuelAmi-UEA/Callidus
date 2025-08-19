@@ -38,6 +38,7 @@ const Header = () => {
           <span className='app-title'>LOS MANOS PIZZARIA</span>
         </div>
         <nav className='nav-links'>
+          <Link to="/home" className={location.pathname === "/" || location.pathname === "/home" ? "active" : ""}>Home</Link>
           {/* Links para cliente (não autenticado como admin) */}
           {!isAdmin && (
             <>

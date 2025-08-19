@@ -1,3 +1,4 @@
+import Home from './pages/Home';
 import Relatorios from './pages/Relatorios';
 import GerenciarCardapio from './pages/GerenciarCardapio';
 import GerenciarFuncionarios from './pages/GerenciarFuncionarios';
@@ -34,7 +35,8 @@ function App() {
             <Header />
             <main className="main-content">
               <Routes>
-                <Route path="/" element={<Cardapio pizzas={pizzasData.pizzas} />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/cardapio" element={<Cardapio pizzas={pizzasData.pizzas} />} />
                 <Route path="/pizza/:id" element={<PizzaCard />} />
                 <Route path="/carrinho" element={<Carrinho />} />

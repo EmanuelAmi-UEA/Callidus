@@ -4,6 +4,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 
+
+import Home from '../pages/Home';
 import GerenciarFuncionarios from '../pages/GerenciarFuncionarios';
 
 
@@ -13,8 +15,9 @@ const AppRoutes = () => {
 
 	return (
 		<Routes>
-			{/* Rotas públicas para clientes */}
-			<Route path="/" element={<Navigate to="/cardapio" />} />
+			{/* Landing page de promoções */}
+			<Route path="/" element={<Home />} />
+			<Route path="/home" element={<Home />} />
 			<Route path="/cardapio" element={<Cardapio />} />
 			<Route path="/carrinho" element={<Carrinho />} />
 			<Route path="/pagamento" element={<Pagamento />} />
