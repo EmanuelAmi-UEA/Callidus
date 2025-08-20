@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 
 const API_URL = "http://localhost:5000/funcionarios";
-const funcoes = ["Motoboy", "Cozinheiro", "Atendente", "Admin"];
+const funcoes = ["Motoboy", "Cozinheiro", "Garçom", "Admin"];
 
 export default function GerenciarFuncionarios() {
   const [funcionarios, setFuncionarios] = useState([]);

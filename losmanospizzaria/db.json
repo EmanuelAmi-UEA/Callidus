@@ -233,16 +233,16 @@
       "salario": 2250
     },
     {
-      "id": "7",
-      "nome": "Ana",
+      "id": "bcf0",
+      "nome": "João",
       "funcao": "Atendente",
-      "salario": 1600
+      "salario": 1200
     },
     {
-      "id": "8",
-      "nome": "Lucas",
-      "funcao": "Atendente",
-      "salario": 1550
+      "id": "c414",
+      "nome": "Alef",
+      "funcao": "Garçom",
+      "salario": 1100
     }
   ],
   "pedidos": [

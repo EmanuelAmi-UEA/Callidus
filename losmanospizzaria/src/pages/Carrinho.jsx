@@ -18,12 +18,18 @@ const CarrinhoPage = () => {
   const [contato, setContato] = React.useState("");
   const [erroEntrega, setErroEntrega] = React.useState("");
 
+  // Consts para funcionalidades principais de Garçom
+  const [modoConsumo, setModoConsumo] = React.useState("entrega"); // "entrega" ou "restaurante"
+  const [mesa, setMesa] = React.useState("");
+  const [aceitaTaxa, setAceitaTaxa] = React.useState(false);
+
   // Lista fixa de bairros (já que bairrosManaus foi removido)
   const bairrosManaus = [
     "Centro", "Adrianópolis", "Aleixo", "Alvorada", "Cachoeirinha", "Cidade Nova", "Compensa", "Coroado", "Dom Pedro", "Flores", "Japiim", "Parque 10", "Petrópolis", "Planalto", "Ponta Negra", "Praça 14", "Redenção", "São Geraldo", "São Jorge", "Tarumã", "Zumbi"
   ];
 
-  const total = cartItems.reduce((sum, item) => sum + Number(item.preco) * (item.quantidade || 1), 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + Number(item.preco) * (item.quantidade || 1), 0);
+  const total = aceitaTaxa ? subtotal * 1.1 : subtotal;
 
   if (cartItems.length === 0) {
     return (
@@ -50,40 +56,82 @@ const CarrinhoPage = () => {
       <h2>Seu Carrinho</h2>
 
       <div style={{marginBottom: 20, background: '#fff7ec', borderRadius: 8, padding: 16}}>
-        <h4>Endereço para entrega</h4>
-        <div style={{display: 'flex', gap: 8, marginBottom: 8}}>
+         <h4>Forma de consumo</h4>
+        <label>
           <input
-            type="text"
-            placeholder="Rua/Logradouro"
-            value={logradouro}
-            onChange={e => setLogradouro(e.target.value)}
-            style={{flex: 2, padding: 8}}
-          />
+            type="radio"
+            value="entrega"
+            checked={modoConsumo === "entrega"}
+            onChange={() => setModoConsumo("entrega")}
+          /> Entrega
+        </label>
+        <label style={{ marginLeft: 16 }}>
           <input
-            type="text"
-            placeholder="Número"
-            value={numero}
-            onChange={e => setNumero(e.target.value)}
-            style={{flex: 1, padding: 8}}
-          />
-          <select
-            value={bairro}
-            onChange={e => setBairro(e.target.value)}
-            style={{flex: 2, padding: 8}}
-          >
-            <option value="">Selecione o bairro</option>
-            {bairrosManaus.map(b => <option key={b} value={b}>{b}</option>)}
-          </select>
-        </div>
+            type="radio"
+            value="restaurante"
+            checked={modoConsumo === "restaurante"}
+            onChange={() => setModoConsumo("restaurante")}
+          /> Restaurante
+        </label>
+      </div>
+
+<div style={{ marginBottom: 20, background: '#fff7ec', borderRadius: 8, padding: 16 }}>
+  {modoConsumo === "entrega" ? (
+    <>
+      <h4>Endereço para entrega</h4>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
         <input
           type="text"
-          placeholder="Número de contato (WhatsApp)"
-          value={contato}
-          onChange={e => setContato(e.target.value)}
-          style={{width: '100%', padding: 8, marginBottom: 8}}
+          placeholder="Rua/Logradouro"
+          value={logradouro}
+          onChange={e => setLogradouro(e.target.value)}
+          style={{ flex: 2, padding: 8 }}
         />
-        {erroEntrega && <div style={{color: 'red', marginBottom: 8}}>{erroEntrega}</div>}
+        <input
+          type="text"
+          placeholder="Número"
+          value={numero}
+          onChange={e => setNumero(e.target.value)}
+          style={{ flex: 1, padding: 8 }}
+        />
+        <select
+          value={bairro}
+          onChange={e => setBairro(e.target.value)}
+          style={{ flex: 2, padding: 8 }}
+        >
+          <option value="">Selecione o bairro</option>
+          {bairrosManaus.map(b => (
+            <option key={b} value={b}>{b}</option>
+          ))}
+        </select>
       </div>
+      <input
+        type="text"
+        placeholder="Número de contato (WhatsApp)"
+        value={contato}
+        onChange={e => setContato(e.target.value)}
+        style={{ width: '100%', padding: 8, marginBottom: 8 }}
+      />
+    </>
+  ) : (
+    <>
+      <h4>Consumo no restaurante</h4>
+      <input
+        type="text"
+        placeholder="Número da mesa"
+        value={mesa}
+        onChange={e => setMesa(e.target.value)}
+        style={{ width: '100%', padding: 8, marginBottom: 8 }}
+      />
+    </>
+  )}
+
+  {erroEntrega && (
+    <div style={{ color: 'red', marginBottom: 8 }}>{erroEntrega}</div>
+  )}
+</div>
+
+
 
       <ul className="carrinho-lista">
         {cartItems.map(item => (
@@ -115,7 +163,20 @@ const CarrinhoPage = () => {
           </li>
         ))}
       </ul>
+
+      <div style={{marginTop: 20, marginBottom: 20}}>
+        <label>
+          <input
+            type="checkbox"
+            checked={aceitaTaxa}
+            onChange={() => setAceitaTaxa(!aceitaTaxa)}
+            /> Aceito pagar 10% da taxa de serviço
+        </label>
+      </div>
+
       <div className="carrinho-total">
+        <strong>Subtotal:</strong> R$ {subtotal.toFixed(2)} <br />
+        {aceitaTaxa && <span>+ 10% taxa de serviço<br/></span>}
         <strong>Total:</strong> R$ {total.toFixed(2)}
       </div>
       <Link to="/pagamento" onClick={handleFinalizar}>
