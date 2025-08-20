@@ -343,6 +343,32 @@
       "status": "entregue",
       "entregador": "Roberto",
       "horario": "10:28"
+    },
+    {
+      "id": "b7ee",
+      "cliente": "Raimundo",
+      "endereco": "Menezes, 12, Adrianópolis | Contato: 12426542143",
+      "telefone": "12426542143",
+      "pizzas": [
+        "Banana com Canela"
+      ],
+      "total": 22.9,
+      "status": "entregue",
+      "entregador": "Carlos",
+      "horario": "11:36"
+    },
+    {
+      "id": "0e38",
+      "cliente": "Bilu",
+      "endereco": ", ,  | Contato: ",
+      "telefone": "",
+      "pizzas": [
+        "Margherita"
+      ],
+      "total": 25.9,
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "12:10"
     }
   ],
   "historicoPedidos": [
@@ -389,6 +415,28 @@
         "Calabresa"
       ],
       "data": "14/08/2025"
+    },
+    {
+      "id": "b7ee",
+      "valor": 22.9,
+      "horarioPedido": "11:36",
+      "horarioEntregue": "11:36",
+      "bairro": "Adrianópolis",
+      "sabores": [
+        "Banana com Canela"
+      ],
+      "data": "20/08/2025"
+    },
+    {
+      "id": "0e38",
+      "valor": 25.9,
+      "horarioPedido": "12:10",
+      "horarioEntregue": "12:10",
+      "bairro": "",
+      "sabores": [
+        "Margherita"
+      ],
+      "data": "20/08/2025"
     }
   ],
   "usuarios": [

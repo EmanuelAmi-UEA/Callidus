@@ -42,11 +42,26 @@ const CarrinhoPage = () => {
 
   // Função para validar e montar infoEntrega antes de ir para pagamento
   const handleFinalizar = (e) => {
+  if (modoConsumo === "entrega") {
+    // Valida somente os campos de entrega
     if (!logradouro.trim() || !numero.trim() || !bairro.trim() || !contato.trim()) {
       setErroEntrega("Preencha todos os campos de endereço e o número de contato antes de finalizar!");
       e.preventDefault();
       return;
     }
+    setErroEntrega("");
+    setInfoEntrega(`${logradouro}, ${numero}, ${bairro} | Contato: ${contato}`);
+  } else {
+    // Valida o número da mesa
+    if (!mesa.trim()) {
+      setErroEntrega("Informe o número da mesa antes de finalizar!");
+      e.preventDefault();
+      return;
+    }
+    setErroEntrega("");
+    setInfoEntrega(`Mesa: ${mesa}`);
+  }
+    
     setErroEntrega("");
     setInfoEntrega(`${logradouro}, ${numero}, ${bairro} | Contato: ${contato}`);
   };
@@ -144,7 +159,7 @@ const CarrinhoPage = () => {
                 {item.tamanho && <div><strong>Tamanho:</strong> {item.tamanho}</div>}
                 {item.borda && <div><strong>Borda:</strong> {item.borda}</div>}
                 {item.extras && Object.keys(item.extras).length > 0 && (
-                  <div><strong>Extras:</strong> {Object.entries(item.extras).filter(([_, qtd]) => qtd > 0).map(([nome, qtd]) => `${nome}${qtd > 1 ? ` (x${qtd})` : ''}`).join(', ')}</div>
+                  <div><strong>Extras:</strong> {Object.entries(item.extras).filter(([qtd]) => qtd > 0).map(([nome, qtd]) => `${nome}${qtd > 1 ? ` (x${qtd})` : ''}`).join(', ')}</div>
                 )}
               </div>
               <div>
