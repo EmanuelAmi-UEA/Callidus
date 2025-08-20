@@ -15,6 +15,11 @@ export default function Cozinha() {
   }, []);
 
   const abrirModal = (pedido) => {
+    // Se for consumo no restaurante (infoEntrega inicia com "Mesa:"), não abre modal
+    if (pedido.infoEntrega?.startsWith('Mesa:')) {
+      confirmarEntregaMesa(pedido);
+      return;
+    }
     setPedidoSelecionado(pedido);
     setEntregador("");
     setShowModal(true);
@@ -60,6 +65,28 @@ export default function Cozinha() {
     fecharModal();
   };
 
+  // Cria "entrega" (registro de acompanhamento) para pedidos de mesa sem selecionar entregador
+  const confirmarEntregaMesa = async (pedido) => {
+    const novaEntrega = {
+      id: pedido.id,
+      cliente: pedido.nomeCliente || pedido.cliente || "",
+      endereco: pedido.infoEntrega || "",
+      telefone: "", // não aplicável
+      pizzas: pedido.itens.map(i => i.nome),
+      total: pedido.total,
+      status: "mesa", // status especial para consumo local
+      entregador: "",
+      horario: ""
+    };
+    await fetch('http://localhost:5000/entregas', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(novaEntrega)
+    });
+    await fetch(`http://localhost:5000/pedidos/${pedido.id}`, { method: 'DELETE' });
+    setPedidos(prev => prev.filter(p => p.id !== pedido.id));
+  };
+
   return (
     <main className='principal'>
       <h2>Pedidos em preparação</h2>
@@ -76,17 +103,27 @@ export default function Cozinha() {
             )}
           </h3>
           <ul style={{marginLeft: 0, paddingLeft: 18}}>
-            {pedido.itens.map((item, idx) => (
-              <li key={idx} style={{marginBottom: 8}}>
-                <strong>{item.nome}</strong> &times; {item.quantidade}<br/>
-                {item.tamanho && <span><strong>Tamanho:</strong> {item.tamanho}<br/></span>}
-                {item.borda && <span><strong>Borda:</strong> {item.borda}<br/></span>}
-                {item.extras && Object.keys(item.extras).length > 0 && (
-                  <span><strong>Extras:</strong> {Object.entries(item.extras).filter(([_, qtd]) => qtd > 0).map(([nome, qtd]) => `${nome}${qtd > 1 ? ` (x${qtd})` : ''}`).join(', ')}<br/></span>
-                )}
-                <span>Ingredientes: {item.ingredientes ? item.ingredientes.join(', ') : '-'}</span>
-              </li>
-            ))}
+            {pedido.itens.map((item) => {
+              const extrasStr = item.extras && Object.keys(item.extras).length > 0
+                ? Object.entries(item.extras)
+                    .filter(([, qtd]) => qtd > 0)
+                    .map(([nome, qtd]) => qtd > 1 ? nome + ' (x' + qtd + ')' : nome)
+                    .join(', ')
+                : '';
+              const key = item.id || (item.nome + '-' + (item.tamanho || '') + '-' + (item.origemCombo || ''));
+              return (
+                <li key={key} style={{marginBottom: 8}}>
+                  <strong>{item.nome}</strong> &times; {item.quantidade}<br/>
+                  {item.origemCombo && <span><strong>Combo:</strong> {item.origemCombo}<br/></span>}
+                  {item.tamanho && <span><strong>Tamanho:</strong> {item.tamanho}<br/></span>}
+                  {item.borda && <span><strong>Borda:</strong> {item.borda}<br/></span>}
+                  {extrasStr && <span><strong>Extras:</strong> {extrasStr}<br/></span>}
+                  {item.ingredientes && Array.isArray(item.ingredientes) && item.ingredientes.length > 0 && (
+                    <span>Ingredientes: {item.ingredientes.join(', ')}<br/></span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
           {pedido.status !== "pronto_entrega" && (
             <button onClick={() => abrirModal(pedido)} style={{ marginTop: 12, padding: '6px 12px' }}>

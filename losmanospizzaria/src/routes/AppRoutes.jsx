@@ -1,13 +1,19 @@
-
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 
-
 import Home from '../pages/Home';
+import Cardapio from '../pages/Cardapio';
+import Carrinho from '../pages/Carrinho';
+import Pagamento from '../pages/Pagamento';
+import Login from '../pages/Login';
+import Cozinha from '../pages/Cozinha';
+import Admin from '../pages/Admin';
+import Entregas from '../pages/Entregas';
+import NotFound from '../pages/NotFound';
 import GerenciarFuncionarios from '../pages/GerenciarFuncionarios';
-
+import ComboDetalhe from '../pages/ComboDetalhe';
 
 const AppRoutes = () => {
 	const { usuario } = useAuth();
@@ -46,6 +52,7 @@ const AppRoutes = () => {
 					{isAdmin ? <Entregas /> : <Navigate to="/login" />}
 				</ProtectedRoute>
 			} />
+			<Route path="/combo/:id" element={<ComboDetalhe />} />
 
 			{/* Página não encontrada */}
 			<Route path="*" element={<NotFound />} />

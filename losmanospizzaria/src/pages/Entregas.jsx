@@ -110,7 +110,8 @@ export default function Entregas() {
               <div className="entrega-info">
                 <p><strong>Cliente:</strong> {entrega.cliente}</p>
                 <p><strong>Telefone:</strong> {entrega.telefone}</p>
-                <p><strong>Endereço:</strong> {entrega.endereco}</p>
+                <p><strong>{entrega.status === 'mesa' ? 'Mesa / Detalhe:' : 'Endereço:'}</strong> {entrega.endereco}</p>
+                {entrega.status !== 'mesa' && (
                 <p><strong>Entregador:</strong> {entrega.status === 'pronto_entrega' ? (
                   <select
                     value={entregadorSelecionado[entrega.id] || ''}
@@ -122,7 +123,7 @@ export default function Entregas() {
                     ))}
                   </select>
                 ) : entrega.entregador || '-'}
-                </p>
+                </p>)}
                 <p><strong>Horário saída:</strong> {entrega.horario || '-'}</p>
                 <p><strong>Pizzas:</strong> {Array.isArray(entrega.pizzas) ? entrega.pizzas.join(', ') : entrega.pizzas}</p>
                 <p><strong>Total:</strong> R$ {Number(entrega.total).toFixed(2)}</p>
@@ -133,6 +134,9 @@ export default function Entregas() {
                 )}
                 {entrega.status === 'saiu_entrega' && (
                   <button className="btn-entregue" onClick={() => handleEntregue(entrega.id)}>Marcar como Entregue</button>
+                )}
+                {entrega.status === 'mesa' && (
+                  <span style={{color:'#795548'}}>Consumo no local</span>
                 )}
                 {entrega.status === 'entregue' && (
                   <span style={{color:'#4caf50'}}>Entregue</span>

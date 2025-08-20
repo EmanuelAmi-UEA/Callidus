@@ -22,6 +22,7 @@ import Entregas from './pages/Entregas'
 import NotFound from './pages/NotFound'
 import Pagamento from './pages/Pagamento'
 import ProtectedRoute from './routes/ProtectedRoute'
+import ComboDetalhe from './pages/ComboDetalhe'
 
 import pizzasData from './data/pizzas.json'
 import './css/App.css'
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/cardapio" element={<Cardapio pizzas={pizzasData.pizzas} />} />
                 <Route path="/pizza/:id" element={<PizzaCard />} />
+                <Route path="/combo/:id" element={<ComboDetalhe />} />
                 <Route path="/carrinho" element={<Carrinho />} />
                 <Route path="/pagamento" element={<Pagamento />} />
                 <Route path="/login" element={<Login />} />

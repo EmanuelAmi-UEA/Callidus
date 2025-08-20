@@ -146,8 +146,20 @@ export default function Pagamento() {
   async function enviarPedido(nome) {
     if (!cartItems || cartItems.length === 0) return;
     const total = cartItems.reduce((sum, item) => sum + Number(item.preco) * (item.quantidade || 1), 0);
+    // Expande combos em itens individuais para a cozinha manter padrão de exibição
+    const itensExpandidos = cartItems.flatMap(item => {
+      if (item.tipo === 'combo' && item.itensCozinha) {
+        // Retorna os itens de cozinha já estruturados
+        return item.itensCozinha.map(it => ({
+          ...it,
+          origemCombo: item.nome
+        }));
+      }
+      return item;
+    });
+
     const pedido = {
-      itens: cartItems,
+      itens: itensExpandidos,
       infoEntrega,
       nomeCliente: nome || nomeCliente,
       total,

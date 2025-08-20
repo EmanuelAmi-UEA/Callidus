@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { getMesas } from '../api/api';
 import { useCart } from '../context/CarrinhoContext';
 import { Link } from 'react-router-dom';
 const CarrinhoPage = () => {
@@ -8,7 +9,6 @@ const CarrinhoPage = () => {
     removerDoCarrinho,
     incrementarQuantidade,
     decrementarQuantidade,
-    infoEntrega,
     setInfoEntrega
   } = useCart();
 
@@ -21,6 +21,8 @@ const CarrinhoPage = () => {
   // Consts para funcionalidades principais de Garçom
   const [modoConsumo, setModoConsumo] = React.useState("entrega"); // "entrega" ou "restaurante"
   const [mesa, setMesa] = React.useState("");
+  const [mesasDisponiveis, setMesasDisponiveis] = React.useState([]);
+  const [qtdPessoas, setQtdPessoas] = React.useState(1);
   const [aceitaTaxa, setAceitaTaxa] = React.useState(false);
 
   // Lista fixa de bairros (já que bairrosManaus foi removido)
@@ -29,6 +31,12 @@ const CarrinhoPage = () => {
   ];
 
   const subtotal = cartItems.reduce((sum, item) => sum + Number(item.preco) * (item.quantidade || 1), 0);
+
+  React.useEffect(() => {
+    if (modoConsumo === 'restaurante' && mesasDisponiveis.length === 0) {
+      getMesas().then(setMesasDisponiveis).catch(()=>{});
+    }
+  }, [modoConsumo, mesasDisponiveis.length]);
   const total = aceitaTaxa ? subtotal * 1.1 : subtotal;
 
   if (cartItems.length === 0) {
@@ -52,18 +60,20 @@ const CarrinhoPage = () => {
     setErroEntrega("");
     setInfoEntrega(`${logradouro}, ${numero}, ${bairro} | Contato: ${contato}`);
   } else {
-    // Valida o número da mesa
-    if (!mesa.trim()) {
-      setErroEntrega("Informe o número da mesa antes de finalizar!");
+    // Restaurante
+    if (!mesa) {
+      setErroEntrega("Selecione a mesa antes de finalizar!");
+      e.preventDefault();
+      return;
+    }
+    if (!qtdPessoas || qtdPessoas < 1) {
+      setErroEntrega("Informe a quantidade de pessoas!");
       e.preventDefault();
       return;
     }
     setErroEntrega("");
-    setInfoEntrega(`Mesa: ${mesa}`);
+    setInfoEntrega(`Mesa: ${mesa} | Pessoas: ${qtdPessoas}`);
   }
-    
-    setErroEntrega("");
-    setInfoEntrega(`${logradouro}, ${numero}, ${bairro} | Contato: ${contato}`);
   };
 
   return (
@@ -131,13 +141,20 @@ const CarrinhoPage = () => {
   ) : (
     <>
       <h4>Consumo no restaurante</h4>
-      <input
-        type="text"
-        placeholder="Número da mesa"
-        value={mesa}
-        onChange={e => setMesa(e.target.value)}
-        style={{ width: '100%', padding: 8, marginBottom: 8 }}
-      />
+      <div style={{display:'flex', gap:8, marginBottom:8}}>
+        <select value={mesa} onChange={e=>setMesa(e.target.value)} style={{flex:1, padding:8}}>
+          <option value="">Selecione a mesa</option>
+          {mesasDisponiveis.map(m => <option key={m} value={m}>{m}</option>)}
+        </select>
+        <input
+          type="number"
+          min={1}
+          value={qtdPessoas}
+          onChange={e=>setQtdPessoas(Number(e.target.value))}
+          style={{width:140, padding:8}}
+          placeholder="Pessoas"
+        />
+      </div>
     </>
   )}
 
@@ -158,9 +175,13 @@ const CarrinhoPage = () => {
               <div style={{ fontSize: '0.95em', color: '#444', margin: '6px 0 8px 0' }}>
                 {item.tamanho && <div><strong>Tamanho:</strong> {item.tamanho}</div>}
                 {item.borda && <div><strong>Borda:</strong> {item.borda}</div>}
-                {item.extras && Object.keys(item.extras).length > 0 && (
-                  <div><strong>Extras:</strong> {Object.entries(item.extras).filter(([qtd]) => qtd > 0).map(([nome, qtd]) => `${nome}${qtd > 1 ? ` (x${qtd})` : ''}`).join(', ')}</div>
-                )}
+                {item.extras && Object.keys(item.extras).length > 0 && (() => {
+                  const extrasList = Object.entries(item.extras)
+                    .filter(([, qtd]) => qtd > 0)
+                    .map(([nome, qtd]) => qtd > 1 ? nome + ' (x' + qtd + ')' : nome)
+                    .join(', ');
+                  return extrasList ? <div><strong>Extras:</strong> {extrasList}</div> : null;
+                })()}
               </div>
               <div>
                 <button onClick={() => decrementarQuantidade(item.id)} disabled={item.quantidade <= 1}>-</button>

@@ -195,6 +195,70 @@
       "disponivel": true
     }
   ],
+  "combos": [
+    {
+      "id": "1",
+      "nome": "Combo Família",
+      "descricao": "2 Pizzas Grandes à escolha + 1 Coca-Cola 2L",
+      "itens": [
+        {
+          "tipo": "pizza",
+          "quantidade": 2,
+          "tamanho": "Grande"
+        },
+        {
+          "tipo": "bebida",
+          "quantidade": 1,
+          "descricao": "Coca-Cola 2L"
+        }
+      ],
+      "imagem": "promocoes/chapolin.png",
+      "preco": 90
+    },
+    {
+      "id": "2",
+      "nome": "Combo Amigos",
+      "descricao": "3 Pizzas Médias + 2 Refrigerantes Lata",
+      "itens": [
+        {
+          "tipo": "pizza",
+          "quantidade": 3,
+          "tamanho": "Média"
+        },
+        {
+          "tipo": "bebida",
+          "quantidade": 2,
+          "descricao": "Refrigerante Lata"
+        }
+      ],
+      "imagem": "promocoes/etbilu.png",
+      "preco": 110
+    },
+    {
+      "id": "3",
+      "nome": "Combo Casal",
+      "descricao": "1 Pizza Grande + 2 Refrigerantes Lata + 1 Sobremesa",
+      "itens": [
+        {
+          "tipo": "pizza",
+          "quantidade": 1,
+          "tamanho": "Grande"
+        },
+        {
+          "tipo": "bebida",
+          "quantidade": 2,
+          "descricao": "Refrigerante Lata"
+        },
+        {
+          "tipo": "sobremesa",
+          "quantidade": 1,
+          "descricao": "Sobremesa do Dia"
+        }
+      ],
+      "imagem": "promocoes/fausto.png",
+      "preco": 65
+    }
+  ],
   "funcionarios": [
     {
       "id": "1",
@@ -245,39 +309,7 @@
       "salario": 1100
     }
   ],
-  "pedidos": [
-    {
-      "id": "97a7",
-      "itens": [
-        {
-          "id": 3,
-          "nome": "Calabresa",
-          "preco": 35.9,
-          "ingredientes": [
-            "Molho de tomate",
-            "Mussarela",
-            "Calabresa",
-            "Cebola",
-            "Orégano"
-          ],
-          "categoria": "tradicional",
-          "imagem": "calabresa.jpeg",
-          "descricao": "Pizza brasileira tradicional com calabresa e cebola.",
-          "tamanho": "Pequena",
-          "borda": "Borda de Catupiry",
-          "extras": {
-            "Milho": 1
-          },
-          "quantidade": 1
-        }
-      ],
-      "infoEntrega": "Rua Vasco da Gama, 33, Parque 10 | Contato: 92 97835-7846",
-      "nomeCliente": "Gandalf, o Cinzento",
-      "total": 35.9,
-      "status": "pendente",
-      "data": "2025-08-14T13:27:48.522Z"
-    }
-  ],
+  "pedidos": [],
   "entregas": [
     {
       "id": "4e8b",
@@ -369,6 +401,47 @@
       "status": "entregue",
       "entregador": "João",
       "horario": "12:10"
+    },
+    {
+      "id": "7130",
+      "cliente": "Joao Guilherme",
+      "endereco": "Rua Abel Botelho, 77, Cidade Nova | Contato: (92)993456432",
+      "telefone": "(92)993456432",
+      "pizzas": [
+        "Combo Amigos"
+      ],
+      "total": 128,
+      "status": "pronto_entrega",
+      "entregador": "Roberto",
+      "horario": ""
+    },
+    {
+      "id": "97a7",
+      "cliente": "Gandalf, o Cinzento",
+      "endereco": "Rua Vasco da Gama, 33, Parque 10 | Contato: 92 97835-7846",
+      "telefone": "92 97835-7846",
+      "pizzas": [
+        "Calabresa"
+      ],
+      "total": 35.9,
+      "status": "pronto_entrega",
+      "entregador": "Carlos",
+      "horario": ""
+    },
+    {
+      "id": "9523",
+      "cliente": "Joao Guilherme",
+      "endereco": "Mesa: 4 | Pessoas: 5",
+      "telefone": "",
+      "pizzas": [
+        "Margherita",
+        "Pepperoni",
+        "Coca-Cola 2L"
+      ],
+      "total": 104,
+      "status": "mesa",
+      "entregador": "",
+      "horario": ""
     }
   ],
   "historicoPedidos": [
@@ -465,5 +538,12 @@
       "descricao": "Uma combinação irresistível de quatro queijos selecionados.",
       "disponivel": true
     }
+  ],
+  "mesas": [
+    1,
+    2,
+    3,
+    4,
+    5
   ]
 }
