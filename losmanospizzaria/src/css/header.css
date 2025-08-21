@@ -1,11 +1,21 @@
+
+
+
+/* Header vibrante e moderno */
 .app-header {
-  background: #0077cc;
-  color: white;
-  padding: 12px 24px;
+  background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
+  color: #3e2723;
+  padding: 16px 32px;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px rgba(255,152,0,0.10);
+  border-radius: 0 0 18px 18px;
+  transition: box-shadow 0.2s, transform 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+}
+
+.app-header:hover {
+  box-shadow: 0 8px 32px rgba(255,152,0,0.18);
 }
 
 .header-content {
@@ -19,34 +29,44 @@
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .header-logo {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #ffb74d55;
+  border: 3px solid #fff8f0;
 }
 
 .app-title {
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  color: #3e2723;
+  text-shadow: 0 2px 8px #ffb74d44;
 }
 
 .nav-links a {
-  color: white;
-  margin-left: 16px;
+  color: #3e2723;
+  margin-left: 22px;
   text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.2s;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-bottom 0.2s;
 }
 
 .nav-links a:hover {
-  opacity: 0.85;
+  color: #ff9800;
+  border-bottom: 2px solid #ff9800;
 }
 
 .nav-links a.active {
-  border-bottom: 2px solid white;
+  border-bottom: 2.5px solid #3e2723;
+  color: #3e2723;
 }
 
 .header-hide {
@@ -54,8 +74,5 @@
   transition: transform 0.4s cubic-bezier(.4,0,.2,1);
   pointer-events: none;
   opacity: 0;
-}
-.app-header {
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s;
 }
 

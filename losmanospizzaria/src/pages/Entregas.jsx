@@ -6,6 +6,7 @@ export default function Entregas() {
   const [loading, setLoading] = useState(true);
   const [motoboys, setMotoboys] = useState([]);
   const [entregadorSelecionado, setEntregadorSelecionado] = useState({}); // idEntrega: nome
+  const [filtro, setFiltro] = useState('todos');
 
   useEffect(() => {
     fetch('http://localhost:5000/entregas')
@@ -90,13 +91,32 @@ export default function Entregas() {
     }
   };
 
+  // Filtro de entregas
+  const entregasFiltradas = entregas.filter(entrega => {
+    if (filtro === 'todos') return true;
+    if (filtro === 'entregue') return entrega.status === 'entregue';
+    if (filtro === 'em_entrega') return entrega.status === 'pronto_entrega' || entrega.status === 'saiu_entrega';
+    if (filtro === 'consumo_local') return entrega.status === 'mesa';
+    return true;
+  });
+
   return (
     <div className="entregas-page">
       <h1>Entregas</h1>
+      <div style={{marginBottom:16, display:'flex', gap:8, flexWrap:'wrap'}}>
+        <label>Filtrar:
+          <select value={filtro} onChange={e=>setFiltro(e.target.value)} style={{marginLeft:8, padding:4}}>
+            <option value="todos">Todos</option>
+            <option value="entregue">Entregues</option>
+            <option value="em_entrega">Em processo de entrega</option>
+            <option value="consumo_local">Consumo local</option>
+          </select>
+        </label>
+      </div>
       {loading ? <p>Carregando entregas...</p> : (
         <div className="entregas-container">
-          {entregas.length === 0 && <p>Nenhuma entrega no momento.</p>}
-          {entregas.map(entrega => (
+          {entregasFiltradas.length === 0 && <p>Nenhuma entrega no momento.</p>}
+          {entregasFiltradas.map(entrega => (
             <div key={entrega.id} className="entrega-card">
               <div className="entrega-header">
                 <h3>Entrega #{entrega.id}</h3>

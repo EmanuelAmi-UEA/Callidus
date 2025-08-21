@@ -1,3 +1,152 @@
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(120deg, #181818 0%, #232323 100%);
+    color: #ffb74d;
+  }
+  #root {
+    background: #232323;
+    color: #ffb74d;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+  .app-header {
+    background: linear-gradient(90deg, #3e2723 0%, #ff9800 100%);
+    color: #ffb74d;
+    box-shadow: 0 4px 16px rgba(255,152,0,0.10);
+  }
+  .cardapio-item-retangular {
+    background: #232323;
+    color: #ffb74d;
+    box-shadow: 0 4px 24px rgba(255,152,0,0.10), 0 1.5px 6px rgba(0,0,0,0.16);
+    border: 1.5px solid #ff9800;
+  }
+  .card {
+    background: #232323;
+    color: #ffb74d;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.10);
+  }
+  .botao-adicionar, .finalizar-compra-btn {
+    background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
+    color: #232323;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.10);
+  }
+  .botao-adicionar:hover, .finalizar-compra-btn:hover {
+    background: linear-gradient(90deg, #ffa726 0%, #ffd54f 100%);
+    color: #232323;
+  }
+  .carrinho-item, .carrinho-total {
+    background: #232323;
+    color: #ffb74d;
+  }
+  .carrinho-lista {
+    background: transparent;
+  }
+  .combo-card {
+    background: #b26a27;
+    color: #ffb74d;
+    border: 1px solid #ff9800;
+  }
+  .promo-img {
+    background: #232323;
+/* DARK MODE NATIVO */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(120deg, #181818 0%, #232323 100%);
+    color: #ffb74d;
+    font-family: 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  }
+  #root {
+    background: #232323;
+    color: #ffb74d;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    border-radius: 18px;
+    padding: 12px;
+  }
+  .app-header {
+    background: linear-gradient(90deg, #3e2723 0%, #ff9800 100%);
+    color: #ffb74d;
+    box-shadow: 0 4px 16px rgba(255,152,0,0.10);
+    border-radius: 0 0 18px 18px;
+  }
+  .cardapio-item-retangular {
+    background: #232323;
+    color: #ffb74d;
+    box-shadow: 0 4px 24px rgba(255,152,0,0.10), 0 1.5px 6px rgba(0,0,0,0.16);
+    border: 1.5px solid #ff9800;
+    border-radius: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cardapio-item-retangular:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(255,152,0,0.18);
+  }
+  .card {
+    background: #232323;
+    color: #ffb74d;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.10);
+    border-radius: 14px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover {
+    box-shadow: 0 8px 32px rgba(255,152,0,0.18);
+  }
+  .botao-adicionar, .finalizar-compra-btn {
+    background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
+    color: #232323;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.10);
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .botao-adicionar:hover, .finalizar-compra-btn:hover {
+    background: linear-gradient(90deg, #ffa726 0%, #ffd54f 100%);
+    color: #232323;
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px rgba(255,152,0,0.18);
+  }
+  .carrinho-item, .carrinho-total {
+    background: #232323;
+    color: #ffb74d;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.10);
+  }
+  .carrinho-lista {
+    background: transparent;
+  }
+  .combo-card {
+    background: linear-gradient(120deg, #b26a27 0%, #ff9800 100%);
+    color: #ffb74d;
+    border: 1px solid #ff9800;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.10);
+    transition: box-shadow 0.2s;
+  }
+  .combo-card:hover {
+    box-shadow: 0 8px 32px rgba(255,152,0,0.18);
+  }
+  .promo-img {
+    background: #232323;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.10);
+  }
+}
+    box-shadow: 0 4px 24px rgba(255,152,0,0.15);
+  }
+  .promo-dot {
+    background: #444;
+    border-color: #ff9800;
+  }
+  .promo-dot.active {
+    background: #ff9800;
+    border-color: #fff8e1;
+  }
+  .promo-progress {
+    background: rgba(255,255,255,0.3);
+  }
+  .mais-pedidos-list {
+    color: #ffd54f;
+  }
+}
 /* Ajuste para imagens do cardápio */
 .cardapio-img-area {
   display: flex;

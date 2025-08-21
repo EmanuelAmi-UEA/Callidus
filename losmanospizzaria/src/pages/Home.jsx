@@ -58,10 +58,26 @@ export default function Home() {
         setCombos(combosLista);
         const historicoRes = await fetch('http://localhost:5000/historicoPedidos');
         const historicoData = await historicoRes.json();
-        const sabores = Array.from(
-          historicoData.flatMap(p => p.sabores).reduce((map, s) => map.set(s, (map.get(s)||0)+1), new Map()),
-          ([nome, pedidos]) => ({ nome, pedidos })
-        ).sort((a,b)=>b.pedidos-a.pedidos).slice(0,5);
+        // Contabiliza sabores, inclusive os de combos, mas não exibe combos
+        const contador = new Map();
+        historicoData.forEach(pedido => {
+          if (Array.isArray(pedido.sabores)) {
+            pedido.sabores.forEach(sabor => {
+              if (typeof sabor === 'string') {
+                // sabor simples
+                if (!sabor.toLowerCase().includes('combo'))
+                  contador.set(sabor, (contador.get(sabor)||0)+1);
+              } else if (sabor && typeof sabor === 'object') {
+                // sabor de combo: {nome, quantidade}
+                if (sabor.nome && !sabor.nome.toLowerCase().includes('combo'))
+                  contador.set(sabor.nome, (contador.get(sabor.nome)||0)+(sabor.quantidade||1));
+              }
+            });
+          }
+        });
+        const sabores = Array.from(contador, ([nome, pedidos]) => ({ nome, pedidos }))
+          .sort((a,b)=>b.pedidos-a.pedidos)
+          .slice(0,5);
         setSaboresMaisPedidos(sabores);
       } catch(e){
         console.error('Falha ao carregar dados iniciais', e);
@@ -100,9 +116,9 @@ export default function Home() {
       </ul>
       <h2 className="home-title">Combos Especiais</h2>
       <div className="combos-list">
-        {combos.map(combo => (
+        {combos.map((combo, idx) => (
           <button
-            key={combo.id}
+            key={typeof combo.id === 'object' ? JSON.stringify(combo.id) : combo.id ?? idx}
             className="combo-card"
             onClick={()=>navigate(`/combo/${combo.id}`)}
             style={{textAlign:'left'}}

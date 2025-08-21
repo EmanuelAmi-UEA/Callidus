@@ -1,4 +1,3 @@
-/* Item dos sabores mais pedidos: nome abaixo da imagem */
 .mais-pedido-item {
   display: flex;
   flex-direction: column;
@@ -12,7 +11,7 @@
   height: 150px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1.5px solid #e67e22;
+  border: 1.5px solid #030201;
   background: #fff;
 }
 /* Seletor de bolinhas para promoções */
@@ -47,6 +46,75 @@
   transform-origin: left;
   animation: fill-progress 5s linear forwards;
   z-index: 2;
+}
+/* Item dos sabores mais pedidos: nome abaixo da imagem */
+.mais-pedido-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  background: linear-gradient(120deg, #fff8f0 0%, #ffe0b2 100%);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #ffb74d33;
+  padding: 18px 10px 10px 10px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.mais-pedido-item:hover {
+  box-shadow: 0 8px 32px #ffb74d55;
+  transform: scale(1.03);
+}
+/* Imagem dos sabores mais pedidos */
+.mais-pedido-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 2.5px solid #ff9800;
+  background: #fff;
+  box-shadow: 0 2px 8px #ffb74d33;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.mais-pedido-img:hover {
+  border: 2.5px solid #d35400;
+  box-shadow: 0 8px 32px #ffb74d55;
+}
+/* Seletor de bolinhas para promoções */
+.promo-selector {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+.promo-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffe0b2;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #ff9800;
+  box-shadow: 0 2px 8px #ffb74d33;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.promo-dot.active {
+  background: #ff9800;
+  border-color: #b71c1c;
+  box-shadow: 0 4px 16px #ffb74d55;
+}
+.promo-progress {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffb74d;
+  border-radius: 50%;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: fill-progress 5s linear forwards;
+  z-index: 2;
+  opacity: 0.7;
 }
 @keyframes fill-progress {
   from { transform: scaleX(0); }
@@ -131,6 +199,6 @@
   display: block;
   margin-top: 12px;
   font-size: 1.3rem;
-  color: #388e3c;
+  color: #32b839;
   font-weight: bold;
 }

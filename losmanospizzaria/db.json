@@ -309,7 +309,64 @@
       "salario": 1100
     }
   ],
-  "pedidos": [],
+  "pedidos": [
+    {
+      "id": "9c0a",
+      "itens": [
+        {
+          "id": 11,
+          "nome": "Chocolate",
+          "preco": 24.9,
+          "ingredientes": [
+            "Chocolate ao leite",
+            "Morango",
+            "Granulado"
+          ],
+          "categoria": "doce",
+          "imagem": "chocolate.jpeg",
+          "descricao": "Pizza doce irresistível com chocolate e morangos frescos.",
+          "tamanho": "Pequena",
+          "borda": "",
+          "extras": {},
+          "quantidade": 1
+        }
+      ],
+      "infoEntrega": "Avenida Cravina dos Poetas, 14, Adrianópolis | Contato: 21212112",
+      "nomeCliente": "",
+      "total": 24.9,
+      "status": "pendente",
+      "data": "2025-08-21T04:08:29.194Z"
+    },
+    {
+      "id": "3ed0",
+      "itens": [
+        {
+          "id": 9,
+          "nome": "Bacon",
+          "preco": 33.9,
+          "ingredientes": [
+            "Molho de tomate",
+            "Mussarela",
+            "Bacon",
+            "Cebola",
+            "Orégano"
+          ],
+          "categoria": "especial",
+          "imagem": "bacon.jpeg",
+          "descricao": "Pizza irresistível com bacon crocante e muito sabor.",
+          "tamanho": "Pequena",
+          "borda": "",
+          "extras": {},
+          "quantidade": 1
+        }
+      ],
+      "infoEntrega": "21312, 123123, Alvorada | Contato: 123123",
+      "nomeCliente": "",
+      "total": 33.9,
+      "status": "pendente",
+      "data": "2025-08-21T04:09:03.500Z"
+    }
+  ],
   "entregas": [
     {
       "id": "4e8b",
@@ -411,9 +468,9 @@
         "Combo Amigos"
       ],
       "total": 128,
-      "status": "pronto_entrega",
-      "entregador": "Roberto",
-      "horario": ""
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "23:15"
     },
     {
       "id": "97a7",
@@ -424,9 +481,9 @@
         "Calabresa"
       ],
       "total": 35.9,
-      "status": "pronto_entrega",
-      "entregador": "Carlos",
-      "horario": ""
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "22:23"
     },
     {
       "id": "9523",
@@ -442,6 +499,123 @@
       "status": "mesa",
       "entregador": "",
       "horario": ""
+    },
+    {
+      "id": "0982",
+      "cliente": "Emanuel Hernandez",
+      "endereco": "Mesa: 4 | Pessoas: 1",
+      "telefone": "",
+      "pizzas": [
+        "Napolitana"
+      ],
+      "total": 128.07999999999998,
+      "status": "mesa",
+      "entregador": "",
+      "horario": ""
+    },
+    {
+      "id": "0660",
+      "cliente": "",
+      "endereco": "234235, 4525, Aleixo | Contato: 4353535345345",
+      "telefone": "4353535345345",
+      "pizzas": [
+        "Pepperoni"
+      ],
+      "total": 29.9,
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "23:15"
+    },
+    {
+      "id": "6444",
+      "cliente": "emanuel ",
+      "endereco": "q23423424, 234234, Centro | Contato: 23423423424",
+      "telefone": "23423423424",
+      "pizzas": [
+        "Pepperoni"
+      ],
+      "total": 29.9,
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "23:15"
+    },
+    {
+      "id": "2351",
+      "cliente": "",
+      "endereco": "213123, 123123, Aleixo | Contato: 123123",
+      "telefone": "123123",
+      "pizzas": [
+        "Pepperoni"
+      ],
+      "total": 29.9,
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "23:15"
+    },
+    {
+      "id": "5cf7",
+      "cliente": "",
+      "endereco": "Mesa: 2 | Pessoas: 1",
+      "telefone": "",
+      "pizzas": [
+        "Calabresa"
+      ],
+      "total": 27.9,
+      "status": "mesa",
+      "entregador": "",
+      "horario": ""
+    },
+    {
+      "id": "2336",
+      "cliente": "",
+      "endereco": "23, 324, Praça 14 | Contato: 234",
+      "telefone": "234",
+      "pizzas": [
+        "Frango com Catupiry"
+      ],
+      "total": 30.9,
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "23:22"
+    },
+    {
+      "id": "251a",
+      "cliente": "",
+      "endereco": "2343, 232324, Japiim | Contato: 23424234",
+      "telefone": "23424234",
+      "pizzas": [
+        "Napolitana"
+      ],
+      "total": 26.9,
+      "status": "entregue",
+      "entregador": "Carlos",
+      "horario": "23:31"
+    },
+    {
+      "id": "1a7c",
+      "cliente": "",
+      "endereco": "12323423, 234234234, Ponta Negra | Contato: 234234234",
+      "telefone": "234234234",
+      "pizzas": [
+        "Chocolate"
+      ],
+      "total": 24.9,
+      "status": "entregue",
+      "entregador": "Roberto",
+      "horario": "00:06"
+    },
+    {
+      "id": "1304",
+      "cliente": "EMANUEL AMI DA SILVA HERNANDEZ",
+      "endereco": "Avenida Cravina dos Poetas, 14, Ponta Negra | Contato: 12124124124",
+      "telefone": "12124124124",
+      "pizzas": [
+        "Vegetariana"
+      ],
+      "total": 28.9,
+      "status": "entregue",
+      "entregador": "João",
+      "horario": "00:06"
     }
   ],
   "historicoPedidos": [
@@ -510,6 +684,147 @@
         "Margherita"
       ],
       "data": "20/08/2025"
+    },
+    {
+      "id": "97a7",
+      "valor": 35.9,
+      "horarioPedido": "22:23",
+      "horarioEntregue": "22:23",
+      "bairro": "Parque 10",
+      "sabores": [
+        "Calabresa"
+      ],
+      "data": "20/08/2025"
+    },
+    {
+      "id": "7130",
+      "valor": 128,
+      "horarioPedido": "23:15",
+      "horarioEntregue": "23:15",
+      "bairro": "Cidade Nova",
+      "sabores": [
+        "Combo Amigos"
+      ],
+      "data": "20/08/2025"
+    },
+    {
+      "id": "0660",
+      "valor": 29.9,
+      "horarioPedido": "23:15",
+      "horarioEntregue": "23:15",
+      "bairro": "Aleixo",
+      "sabores": [
+        "Pepperoni"
+      ],
+      "data": "20/08/2025"
+    },
+    {
+      "id": "6444",
+      "valor": 29.9,
+      "horarioPedido": "23:15",
+      "horarioEntregue": "23:15",
+      "bairro": "Centro",
+      "sabores": [
+        "Pepperoni"
+      ],
+      "data": "20/08/2025"
+    },
+    {
+      "id": "2351",
+      "valor": 29.9,
+      "horarioPedido": "23:15",
+      "horarioEntregue": "23:15",
+      "bairro": "Aleixo",
+      "sabores": [
+        "Pepperoni"
+      ],
+      "data": "20/08/2025"
+    },
+    {
+      "id": "2336",
+      "valor": 30.9,
+      "horarioPedido": "23:22",
+      "horarioEntregue": "23:22",
+      "bairro": "Praça 14",
+      "sabores": [
+        "Frango com Catupiry"
+      ],
+      "data": "20/08/2025",
+      "metodoPagamento": "indefinido"
+    },
+    {
+      "id": "x73heo",
+      "valor": 26.9,
+      "horarioPedido": "23:26",
+      "horarioEntregue": "",
+      "bairro": "Japiim",
+      "sabores": [
+        "Napolitana"
+      ],
+      "data": "20/08/2025",
+      "metodoPagamento": "dinheiro",
+      "localPagamento": "entrega"
+    },
+    {
+      "id": "251a",
+      "valor": 26.9,
+      "horarioPedido": "23:31",
+      "horarioEntregue": "23:31",
+      "bairro": "Japiim",
+      "sabores": [
+        "Napolitana"
+      ],
+      "data": "20/08/2025",
+      "metodoPagamento": "indefinido"
+    },
+    {
+      "id": "ivi0ao",
+      "valor": 24.9,
+      "horarioPedido": "23:31",
+      "horarioEntregue": "",
+      "bairro": "Ponta Negra",
+      "sabores": [
+        "Chocolate"
+      ],
+      "data": "20/08/2025",
+      "metodoPagamento": "dinheiro",
+      "localPagamento": "entrega"
+    },
+    {
+      "id": "i9kkfk",
+      "cliente": "EMANUEL AMI DA SILVA HERNANDEZ",
+      "valor": 28.9,
+      "horarioPedido": "00:05",
+      "horarioEntregue": "",
+      "bairro": "Ponta Negra",
+      "sabores": [
+        "Vegetariana"
+      ],
+      "data": "21/08/2025",
+      "metodoPagamento": "pix",
+      "localPagamento": "entrega"
+    },
+    {
+      "id": "1a7c",
+      "valor": 24.9,
+      "horarioPedido": "00:06",
+      "horarioEntregue": "00:06",
+      "bairro": "Ponta Negra",
+      "sabores": [
+        "Chocolate"
+      ],
+      "data": "21/08/2025"
+    },
+    {
+      "id": "1304",
+      "valor": 28.9,
+      "horarioPedido": "00:06",
+      "horarioEntregue": "00:06",
+      "bairro": "Ponta Negra",
+      "sabores": [
+        "Vegetariana"
+      ],
+      "data": "21/08/2025"
     }
   ],
   "usuarios": [
@@ -540,10 +855,20 @@
     }
   ],
   "mesas": [
-    1,
-    2,
-    3,
-    4,
-    5
+    {
+      "id": "1"
+    },
+    {
+      "id": "2"
+    },
+    {
+      "id": "3"
+    },
+    {
+      "id": "4"
+    },
+    {
+      "id": "5"
+    }
   ]
 }

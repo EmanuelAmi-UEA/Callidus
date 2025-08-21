@@ -1,17 +1,22 @@
 
 import React from 'react';
+import { toast } from 'react-toastify';
+import '../css/carrinho.css';
 import { getMesas } from '../api/api';
 import { useCart } from '../context/CarrinhoContext';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const CarrinhoPage = () => {
+  const navigate = useNavigate();
   const {
     cartItems,
+    setCartItems,
     removerDoCarrinho,
     incrementarQuantidade,
     decrementarQuantidade,
     setInfoEntrega
   } = useCart();
 
+  const [nomeCliente, setNomeCliente] = React.useState("");
   const [logradouro, setLogradouro] = React.useState("");
   const [numero, setNumero] = React.useState("");
   const [bairro, setBairro] = React.useState("");
@@ -24,6 +29,10 @@ const CarrinhoPage = () => {
   const [mesasDisponiveis, setMesasDisponiveis] = React.useState([]);
   const [qtdPessoas, setQtdPessoas] = React.useState(1);
   const [aceitaTaxa, setAceitaTaxa] = React.useState(false);
+  // Pagamento
+  // 'agora' = vai para tela de pagamento, 'entrega' = paga na entrega/estabelecimento
+  const [opcaoPagamento, setOpcaoPagamento] = React.useState('agora');
+  const [metodoPagamento, setMetodoPagamento] = React.useState('pix'); // pix, dinheiro, cartao
 
   // Lista fixa de bairros (já que bairrosManaus foi removido)
   const bairrosManaus = [
@@ -43,44 +52,141 @@ const CarrinhoPage = () => {
     return (
       <div className="carrinho">
         <h2>Seu carrinho está vazio</h2>
-        <Link to="/cardapio">Ver Cardápio</Link>
+  <a href="/cardapio">Ver Cardápio</a>
       </div>
     );
   }
 
   // Função para validar e montar infoEntrega antes de ir para pagamento
-  const handleFinalizar = (e) => {
-  if (modoConsumo === "entrega") {
-    // Valida somente os campos de entrega
-    if (!logradouro.trim() || !numero.trim() || !bairro.trim() || !contato.trim()) {
-      setErroEntrega("Preencha todos os campos de endereço e o número de contato antes de finalizar!");
-      e.preventDefault();
+  const handleFinalizar = async (e) => {
+    e.preventDefault && e.preventDefault();
+    if (!nomeCliente.trim()) {
+      setErroEntrega("Informe o nome do cliente!");
       return;
     }
-    setErroEntrega("");
-    setInfoEntrega(`${logradouro}, ${numero}, ${bairro} | Contato: ${contato}`);
-  } else {
-    // Restaurante
-    if (!mesa) {
-      setErroEntrega("Selecione a mesa antes de finalizar!");
-      e.preventDefault();
-      return;
+    if (modoConsumo === "entrega") {
+      if (!logradouro.trim() || !numero.trim() || !bairro.trim() || !contato.trim()) {
+        setErroEntrega("Preencha todos os campos de endereço e o número de contato antes de finalizar!");
+        return;
+      }
+      setErroEntrega("");
+      setInfoEntrega(`${logradouro}, ${numero}, ${bairro} | Contato: ${contato}`);
+      if (opcaoPagamento === 'agora') {
+        navigate('/pagamento');
+      } else {
+        // Envia direto para a cozinha
+        await enviarPedidoDireto();
+      }
+    } else {
+      // Restaurante
+      if (!mesa) {
+        setErroEntrega("Selecione a mesa antes de finalizar!");
+        return;
+      }
+      if (!qtdPessoas || qtdPessoas < 1) {
+        setErroEntrega("Informe a quantidade de pessoas!");
+        return;
+      }
+      setErroEntrega("");
+      setInfoEntrega(`Mesa: ${mesa} | Pessoas: ${qtdPessoas}`);
+      if (opcaoPagamento === 'agora') {
+        navigate('/pagamento');
+      } else {
+        // Envia direto para a cozinha
+        await enviarPedidoDireto();
+      }
     }
-    if (!qtdPessoas || qtdPessoas < 1) {
-      setErroEntrega("Informe a quantidade de pessoas!");
-      e.preventDefault();
-      return;
-    }
-    setErroEntrega("");
-    setInfoEntrega(`Mesa: ${mesa} | Pessoas: ${qtdPessoas}`);
-  }
   };
+
+  // Função para enviar pedido direto para a cozinha
+  async function enviarPedidoDireto() {
+    if (!cartItems || cartItems.length === 0) return;
+    const total = cartItems.reduce((sum, item) => sum + Number(item.preco) * (item.quantidade || 1), 0);
+    const itensExpandidos = cartItems.flatMap(item => {
+      if (item.tipo === 'combo' && item.itensCozinha) {
+        return item.itensCozinha.map(it => ({ ...it, origemCombo: item.nome }));
+      }
+      return item;
+    });
+    // Define localPagamento e metodoPagamento
+    let localPagamento = 'online';
+    let metodoPag = '';
+    if (modoConsumo === 'entrega') {
+      if (opcaoPagamento === 'entrega') {
+        localPagamento = 'entrega';
+        metodoPag = metodoPagamento;
+      } else {
+        localPagamento = 'online';
+        metodoPag = 'pagamento_online';
+      }
+    } else {
+      if (opcaoPagamento === 'estabelecimento') {
+        localPagamento = 'estabelecimento';
+        metodoPag = '';
+      } else {
+        localPagamento = 'online';
+        metodoPag = 'pagamento_online';
+      }
+    }
+    const pedido = {
+      cliente: nomeCliente,
+      itens: itensExpandidos,
+      infoEntrega: modoConsumo === 'entrega' ? `${logradouro}, ${numero}, ${bairro} | Contato: ${contato}` : `Mesa: ${mesa} | Pessoas: ${qtdPessoas}`,
+      total,
+      status: 'pendente',
+      data: new Date().toISOString(),
+      metodoPagamento: metodoPag,
+      localPagamento
+    };
+    try {
+      const resp = await fetch('http://localhost:5000/pedidos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pedido)
+      });
+      // Salva também no histórico
+      await fetch('http://localhost:5000/historicoPedidos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: Math.random().toString(36).slice(2,8),
+          cliente: nomeCliente,
+          valor: total,
+          horarioPedido: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          horarioEntregue: '',
+          bairro: modoConsumo === 'entrega' ? bairro : '',
+          sabores: itensExpandidos.map(i => i.nome),
+          data: new Date().toLocaleDateString(),
+          metodoPagamento: metodoPag,
+          localPagamento
+        })
+      });
+      if (resp.ok) {
+        toast.success('Pedido enviado para a cozinha!', { position: 'top-center', autoClose: 2000 });
+        setCartItems([]);
+        setTimeout(() => { navigate('/'); }, 2000);
+      } else {
+        toast.error('Erro ao enviar pedido para a cozinha!', { position: 'top-center' });
+      }
+    } catch {
+      toast.error('Erro ao enviar pedido para a cozinha!', { position: 'top-center' });
+    }
+  }
 
   return (
     <div className="carrinho">
       <h2>Seu Carrinho</h2>
 
       <div style={{marginBottom: 20, background: '#fff7ec', borderRadius: 8, padding: 16}}>
+        <div style={{marginBottom:12}}>
+          <input
+            type="text"
+            placeholder="Nome do cliente"
+            value={nomeCliente}
+            onChange={e => setNomeCliente(e.target.value)}
+            style={{width:'100%', padding:8}}
+          />
+        </div>
          <h4>Forma de consumo</h4>
         <label>
           <input
@@ -100,7 +206,9 @@ const CarrinhoPage = () => {
         </label>
       </div>
 
+
 <div style={{ marginBottom: 20, background: '#fff7ec', borderRadius: 8, padding: 16 }}>
+
   {modoConsumo === "entrega" ? (
     <>
       <h4>Endereço para entrega</h4>
@@ -137,6 +245,34 @@ const CarrinhoPage = () => {
         onChange={e => setContato(e.target.value)}
         style={{ width: '100%', padding: 8, marginBottom: 8 }}
       />
+      <div style={{marginTop:12, marginBottom:8}}>
+        <label>
+          <input
+            type="radio"
+            value="agora"
+            checked={opcaoPagamento === 'agora'}
+            onChange={()=>setOpcaoPagamento('agora')}
+          /> Pagar agora
+        </label>
+        <label style={{marginLeft:16}}>
+          <input
+            type="radio"
+            value="entrega"
+            checked={opcaoPagamento === 'entrega'}
+            onChange={()=>setOpcaoPagamento('entrega')}
+          /> Pagar na entrega
+        </label>
+      </div>
+      {opcaoPagamento === 'entrega' && (
+        <div style={{marginTop:8}}>
+          <label>Método de pagamento:</label>
+          <select value={metodoPagamento} onChange={e=>setMetodoPagamento(e.target.value)} style={{marginLeft:8, padding:4}}>
+            <option value="pix">Pix</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="cartao">Cartão</option>
+          </select>
+        </div>
+      )}
     </>
   ) : (
     <>
@@ -144,7 +280,9 @@ const CarrinhoPage = () => {
       <div style={{display:'flex', gap:8, marginBottom:8}}>
         <select value={mesa} onChange={e=>setMesa(e.target.value)} style={{flex:1, padding:8}}>
           <option value="">Selecione a mesa</option>
-          {mesasDisponiveis.map(m => <option key={m} value={m}>{m}</option>)}
+          {mesasDisponiveis.map(m => (
+            <option key={m.id} value={m.id}>{m.id}</option>
+          ))}
         </select>
         <input
           type="number"
@@ -155,6 +293,25 @@ const CarrinhoPage = () => {
           placeholder="Pessoas"
         />
       </div>
+      <div style={{marginTop:12, marginBottom:8}}>
+        <label>
+          <input
+            type="radio"
+            value="agora"
+            checked={opcaoPagamento === 'agora'}
+            onChange={()=>setOpcaoPagamento('agora')}
+          /> Pagar agora
+        </label>
+        <label style={{marginLeft:16}}>
+          <input
+            type="radio"
+            value="estabelecimento"
+            checked={opcaoPagamento === 'estabelecimento'}
+            onChange={()=>setOpcaoPagamento('estabelecimento')}
+          /> Pagar no estabelecimento
+        </label>
+      </div>
+      {/* Não mostra métodos de pagamento para restaurante */}
     </>
   )}
 
@@ -215,9 +372,7 @@ const CarrinhoPage = () => {
         {aceitaTaxa && <span>+ 10% taxa de serviço<br/></span>}
         <strong>Total:</strong> R$ {total.toFixed(2)}
       </div>
-      <Link to="/pagamento" onClick={handleFinalizar}>
-        <button className="finalizar-compra-btn">Finalizar Compra</button>
-      </Link>
+  <button className="finalizar-compra-btn" onClick={handleFinalizar}>Finalizar Compra</button>
     </div>
   );
 };

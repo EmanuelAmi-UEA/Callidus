@@ -30,27 +30,9 @@ function validaCPF(cpf) {
 }
 
 
-// Formulário base para nome do cliente
-const NomeClienteForm = ({ nomeCliente, setNomeCliente, error }) => (
-  <div className="form-group">
-    <label htmlFor="nomeCliente">Nome do Cliente</label>
-    <input
-      className={`input ${error ? 'error' : ''}`}
-      type="text"
-      id="nomeCliente"
-      name="nomeCliente"
-      value={nomeCliente}
-      onChange={e => setNomeCliente(e.target.value)}
-      placeholder="Digite seu nome para o pedido"
-      required
-    />
-    {error && <p className="error-message">{error}</p>}
-  </div>
-);
-
-const FormularioPix = ({ onSubmit, errors, nomeCliente, setNomeCliente }) => (
+// Formulário Pix sem nome do cliente
+const FormularioPix = ({ onSubmit, errors }) => (
   <form onSubmit={onSubmit} noValidate>
-    <NomeClienteForm nomeCliente={nomeCliente} setNomeCliente={setNomeCliente} error={errors.nomeCliente} />
     <div className="form-group">
       <label htmlFor="cpf">CPF</label>
       <input className={`input ${errors.cpf ? 'error' : ''}`} type="text" id="cpf" name="cpf" placeholder="000.000.000-00" />
@@ -60,9 +42,8 @@ const FormularioPix = ({ onSubmit, errors, nomeCliente, setNomeCliente }) => (
   </form>
 );
 
-const FormularioCartao = ({ onSubmit, errors, nomeCliente, setNomeCliente }) => (
+const FormularioCartao = ({ onSubmit, errors }) => (
   <form onSubmit={onSubmit} noValidate>
-    <NomeClienteForm nomeCliente={nomeCliente} setNomeCliente={setNomeCliente} error={errors.nomeCliente} />
     <div className="form-group">
       <label htmlFor="numeroCartao">Número do Cartão</label>
       <input className={`input ${errors.numeroCartao ? 'error' : ''}`} type="text" id="numeroCartao" name="numeroCartao" placeholder="0000 0000 0000 0000" maxLength="19" />
@@ -93,9 +74,6 @@ export default function Pagamento() {
 
   const validate = (formData) => {
     const newErrors = {};
-    if (!nomeCliente || nomeCliente.trim().length < 2) {
-      newErrors.nomeCliente = 'O nome do cliente é obrigatório.';
-    }
     if (metodoPagamento === 'pix') {
       if (!formData.cpf) newErrors.cpf = 'O CPF é obrigatório.';
       else if (!validaCPF(formData.cpf)) newErrors.cpf = 'CPF inválido.';
